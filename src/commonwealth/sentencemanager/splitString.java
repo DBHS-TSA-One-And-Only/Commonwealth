@@ -35,7 +35,7 @@ public class splitString {
 			e.printStackTrace();
 		}
 
-	for (String s: sentence.split("[\\p{Punct}]")){             //splits sentence into words at spaces AND punctuation!! :D 
+	for (String s: sentence.split("[\\p{Punct} \\\\n\\t\\r]")){             //splits sentence into words at spaces AND punctuation!! :D 
      
             if (!(s.equals(""))){
                 
