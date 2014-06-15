@@ -43,6 +43,7 @@ public class splitString {
             }
         }
         
+        //for testing 
         for(String b : brokenSentence){
             System.out.println(b);
         }
