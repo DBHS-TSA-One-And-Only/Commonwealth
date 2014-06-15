@@ -42,6 +42,10 @@ public class splitString {
                 brokenSentence.add(s); 
             }
         }
+        
+        for(String b : brokenSentence){
+            System.out.println(b);
+        }
     }
 }
     
