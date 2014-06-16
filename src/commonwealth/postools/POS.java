@@ -3,6 +3,7 @@
 
 package commonwealth.postools;
 
+// instantiate the postagger thing here
 
 public class POS {
     
