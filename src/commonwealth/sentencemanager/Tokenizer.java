@@ -1,22 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// this class contains methods to tokenize the input sentence
 
 package commonwealth.sentencemanager;
-
-/**
- *
- * @author forest
- */
 
 //not finished yet, pushed for gui testing
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class splitString {
+public class Tokenizer {
 
     public static void main (String[] args){
 
