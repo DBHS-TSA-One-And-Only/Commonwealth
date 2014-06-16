@@ -17,20 +17,21 @@ public class Tokenizer {
 
 		try {
 
-			sentence = scanner.readLine(); // reads input
+			sentence = scanner.readLine(); // reads user input
 		} catch (IOException e) {
 
 			e.printStackTrace();
 		}
 
-		for (String s : sentence.split("[@ \\t\r]")) { // splits sentence into
-														// words at spaces AND
-														// punctuation!! :D
-
+		for (String s : sentence.split("[@ \\t\r]")) { /* splits sentence into single words at spaces (not punctuations anymore QQ)
+								*  					
+								* Note: will also bring punctuation with word. ie(Hi, I'm Akali 
+                                                                * will split into "Hi,", "I'm" , and "Akali"
+                                                                */
 			if (!(s.equals(""))) {
 
-				punctuation = s.substring(s.length() - 1);
-				if (punctuation.matches("[, ; : . ? ! \" \']")) {   // checks for punctuation
+				punctuation = s.substring(s.length() - 1);          
+				if (punctuation.matches("[, ; : . ? ! \" \']")) {   // checks last character of s for punctuation
 																	 
 					s = s.substring(0, s.length() - 1);
 				} else {
