@@ -1,7 +1,3 @@
-// this class contains methods to tokenize the input sentence
-
-package commonwealth.sentencemanager;
-
 //not finished yet, pushed for gui testing
 
 import java.io.*;
@@ -9,36 +5,64 @@ import java.util.ArrayList;
 
 public class Tokenizer {
 
-    public static void main (String[] args){
+	public static void main(String[] args) {
 
-	System.out.println("Type a sentence and press 'Enter.'"); 
-	
-	String sentence = "";
-        ArrayList<String> brokenSentence = new ArrayList<>();
-	InputStreamReader input = new InputStreamReader(System.in);
-	BufferedReader scanner = new BufferedReader(input);        
+		System.out.println("Type a sentence and press 'Enter.'");
+
+		String sentence = "", space = " ", punctuation = "";
+		ArrayList<String> brokenSentence = new ArrayList<>();
+		ArrayList<String> characterType = new ArrayList<>();
+		InputStreamReader input = new InputStreamReader(System.in);
+		BufferedReader scanner = new BufferedReader(input);
 
 		try {
-                    
-			sentence = scanner.readLine();               //reads input
+
+			sentence = scanner.readLine(); // reads input
 		} catch (IOException e) {
-                    
+
 			e.printStackTrace();
 		}
 
-	for (String s: sentence.split("[\\p{Punct} \\\\n\\t\\r]")){             //splits sentence into words at spaces AND punctuation!! :D 
-     
-            if (!(s.equals(""))){
-                
-                brokenSentence.add(s); 
-            }
-        }
-        
-        //for testing 
-        for(String b : brokenSentence){
-            System.out.println(b);
-        }
-    }
-}
-    
+		for (String s : sentence.split("[@ \\t\r]")) { // splits sentence into
+														// words at spaces AND
+														// punctuation!! :D
 
+			if (!(s.equals(""))) {
+
+				punctuation = s.substring(s.length() - 1);
+				if (punctuation.matches("[, ; : . ? ! \" \']")) {   // checks for punctuation
+																	 
+					s = s.substring(0, s.length() - 1);
+				} else {
+
+					punctuation = "";
+				}
+
+				brokenSentence.add(s);
+				characterType.add("Word");
+
+				if (!(punctuation.equals(""))) {
+
+					brokenSentence.add(punctuation);
+					characterType.add("Punctuation");
+				}
+
+				brokenSentence.add(space);
+				characterType.add("space");
+				punctuation = "";
+
+			}
+
+		}
+
+		// for testing
+		for (String b : brokenSentence) {
+			System.out.println(b);
+		}
+		
+		for(String c: characterType){
+			System.out.println(c);
+		}
+		
+	}
+}
