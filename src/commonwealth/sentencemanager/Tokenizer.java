@@ -31,7 +31,7 @@ public class Tokenizer {
 			if (!(s.equals(""))) {
 
 				punctuation = s.substring(s.length() - 1);          
-				if (punctuation.matches("[, ; : . ? ! \" \']")) {   // checks last character of s for punctuation
+				if (punctuation.matches("[, ; : . ? ! _ ( )  [ ] \\\" \\']")) {   // checks last character s for punctuation
 																	 
 					s = s.substring(0, s.length() - 1);
 				} else {
