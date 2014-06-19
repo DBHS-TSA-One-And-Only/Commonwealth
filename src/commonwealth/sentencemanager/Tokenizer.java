@@ -17,7 +17,7 @@ public class Tokenizer {
 	MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
 	
 	String[][] key = new String[40][2];
-	public void splitString() {
+	public void splitString() {                                             //splits string into individual words and punctuation
 
 		try {
 
@@ -75,7 +75,7 @@ public class Tokenizer {
 		 */
 
 	}
-	public void tagger() {
+	public void tagger() {                                                  //uses pos tagger to tag words in brokenSentence ArrayList
 		for (int i = 0; i < brokenSentence.size(); i++) {
 
 			brokenSentence.set(i, tagger.tagString(brokenSentence.get(i)));
@@ -84,10 +84,10 @@ public class Tokenizer {
 		}
 	}
 
-	public void setup() {
-		int indexOfIdentifier;
-		for (int i = 0; i < brokenSentence.size(); i++) { // sets up charIdentifier for translating by removing
-														  // underscore and adding tag to charIdentifier ArrayList
+	public void setup() {                                                   // sets up charIdentifier for translating by removing
+		int indexOfIdentifier;                                          // underscore and adding tag to charIdentifier ArrayList
+		for (int i = 0; i < brokenSentence.size(); i++) {                  
+														  
 
 			if ((indexOfIdentifier = brokenSentence.get(i).indexOf("_")) != -1) {
 				characterType.set(i,brokenSentence.get(i).substring(indexOfIdentifier + 1));
@@ -132,7 +132,7 @@ public class Tokenizer {
 
 	}
 
-	public void translate() {
+	public void translate() {                                               //translates the pos tags into normal english
 
 		for (int i = 0; i < characterType.size(); i++) {
 			for (int j = 0; j < key.length; j++) {
