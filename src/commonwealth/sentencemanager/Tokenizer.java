@@ -75,7 +75,7 @@ public class Tokenizer {
 		 */
 
 	}
-	public void tagger() {                                                  //uses pos tagger to tag words in brokenSentence ArrayList
+	public void tag() {                                                  //uses pos tagger to tag words in brokenSentence ArrayList
 		for (int i = 0; i < brokenSentence.size(); i++) {
 
 			brokenSentence.set(i, tagger.tagString(brokenSentence.get(i)));
