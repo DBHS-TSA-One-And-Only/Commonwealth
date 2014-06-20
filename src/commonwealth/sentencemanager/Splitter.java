@@ -24,7 +24,7 @@ public class Splitter {
 		int previousIndex = 0;
 
 		for (int index = 0; index < tokenizedSentence.size(); index++) {
-			if (tokenizedSentence.get(index).matches("[,;]")) {
+			if (tokenizedSentence.get(index).matches("[,;:]")) {
 				ArrayList<String> clauseHolder = new ArrayList<>(), identifierHolder = new ArrayList<>();
 				for (int i = previousIndex; i <= index; i++) {
 					clauseHolder.add(tokenizedSentence.get(i));
