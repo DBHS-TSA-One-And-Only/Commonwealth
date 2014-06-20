@@ -8,7 +8,7 @@ public class Identifier {
 	
 	ArrayList<ArrayList<String>> clauses = new ArrayList<>(); 
 	ArrayList<String> charIdentifier = new ArrayList<>();
-	public static final String[] posKey = {"Singular or Mass Noun", "Singular Proper Noun", "Plural Proper Noun", "Plural Noun", "Personal Pronoun", "Possessive Pronoun", "Wh-pronoun", "Possessive wh-pronoun", "Wh-determiner"};
+	public static final String[] POSKEY = {"Singular or Mass Noun", "Singular Proper Noun", "Plural Proper Noun", "Plural Noun", "Personal Pronoun", "Possessive Pronoun", "Wh-pronoun", "Possessive wh-pronoun", "Wh-determiner"};
 	
 	public Identifier(ArrayList<ArrayList<String>> clause, ArrayList<String> identifier){
 		clauses = clause;
@@ -27,7 +27,7 @@ public class Identifier {
     public ArrayList<String> subjectsOf(ArrayList<String> clause, ArrayList<String> charIdentifier){
     	ArrayList<String> subjects = new ArrayList<>();
         for(int index = 0; index< charIdentifier.size(); index++){
-        	for(String s: posKey){
+        	for(String s: POSKEY){
         		if(charIdentifier.get(index).matches(s)){
         			subjects.add(clause.get(index));
         		}
