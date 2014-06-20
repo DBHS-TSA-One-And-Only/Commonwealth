@@ -17,6 +17,7 @@ public class Sentence {
     }
     
     public ArrayList<Clause> getClauses(){
+        
         return clauses;
     }
     
