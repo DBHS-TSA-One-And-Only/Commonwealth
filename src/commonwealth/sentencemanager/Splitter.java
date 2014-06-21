@@ -9,22 +9,18 @@ public class Splitter {
 	public static ArrayList<String> tokenizedSentence = new ArrayList<>(), charIdentifier = new ArrayList<>();
 	public static ArrayList<ArrayList<String>> clauses = new ArrayList<>(), charIdentifiers = new ArrayList<>();
 	
-
-	public Splitter(ArrayList<String> sentence, ArrayList<String> charIdentifier) {
-		tokenizedSentence = sentence;
-		this.charIdentifier= charIdentifier;
-	}
-
 	// this method splits the tokenized string sentence into clauses based on
 	// clause conjunction keywords or commas
 	// returns multiple arraylists in an arraylist of arraylists
 	// each arraylist in the returned arraylist will be a POTENTIAL clause
 	public static ArrayList<ArrayList<String>> splitClauses(
-			ArrayList<String> sentence) {
+			ArrayList<String> sentence, ArrayList<String> characterType) {
+		tokenizedSentence = sentence;
+		charIdentifier= characterType;
 		int previousIndex = 0;
 
 		for (int index = 0; index < tokenizedSentence.size(); index++) {
-			if (tokenizedSentence.get(index).matches("[,;:]")) {
+			if (tokenizedSentence.get(index).matches("[,;]")) {
 				ArrayList<String> clauseHolder = new ArrayList<>(), identifierHolder = new ArrayList<>();
 				for (int i = previousIndex; i <= index; i++) {
 					clauseHolder.add(tokenizedSentence.get(i));
@@ -39,4 +35,3 @@ public class Splitter {
 	}
 
 }
-

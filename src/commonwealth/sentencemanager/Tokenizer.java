@@ -8,33 +8,21 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class Tokenizer {
 	
-	String sentence = "", space = " ", punctuation = "";
-	ArrayList<String> brokenSentence = new ArrayList<>(), characterType = new ArrayList<>(); //characterType cotains labels for corresponding 
-	InputStreamReader input = new InputStreamReader(System.in);								 //elements in brokenSentence
-	BufferedReader scanner = new BufferedReader(input);
+	static String sentence = "", space = " ", punctuation = "";
+	static ArrayList<String> brokenSentence = new ArrayList<>(), characterType = new ArrayList<>(); //characterType cotains labels for corresponding 
+	static MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
+	static String[][] key = new String[40][2];
 	
+	public static ArrayList<ArrayList<String>> splitString(String input) {
+		sentence = input;
+		
 
-	MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
-	
-	String[][] key = new String[40][2];
-	public void splitString() {                                             //splits string into individual words and punctuation
-
-		try {
-
-			sentence = scanner.readLine(); // reads input
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-
-		for (String s : sentence.split("[@ _ \\t\r]")) { /*
-														 * splits sentence into single words at
-														 * spaces (not punctuations anymore QQ)
-														 * 
-														 * Note: will also bring punctuation with
-														 * word. ie "Hi, I'm Akali" will split into
-														 * "Hi,", "I'm" , and "Akali"
-														 */
+		for (String s : sentence.split("[@ _ \\t\r]")) {       /*
+									* splits sentence into single words at spaces (not punctuations anymore QQ)
+									* 
+									* Note: will also bring punctuation with word. ie "Hi, I'm Akali" will split into
+									* "Hi,", "I'm" , and "Akali"
+									*/
 
 			if (!(s.equals(""))) {
 
@@ -64,6 +52,14 @@ public class Tokenizer {
 			}
 
 		}
+		Tokenizer.tagger();
+		Tokenizer.setup();
+		Tokenizer.translate();
+		ArrayList<ArrayList<String>> tokenizedString = new ArrayList<>();
+		tokenizedString.add(brokenSentence);
+		tokenizedString.add(characterType);
+		
+		return tokenizedString;
 
 		
 
@@ -75,7 +71,7 @@ public class Tokenizer {
 		 */
 
 	}
-	public void tag() {                                                  //uses pos tagger to tag words in brokenSentence ArrayList
+	public static void tagger() {
 		for (int i = 0; i < brokenSentence.size(); i++) {
 
 			brokenSentence.set(i, tagger.tagString(brokenSentence.get(i)));
@@ -84,10 +80,10 @@ public class Tokenizer {
 		}
 	}
 
-	public void setup() {                                                   // sets up charIdentifier for translating by removing
-		int indexOfIdentifier;                                          // underscore and adding tag to charIdentifier ArrayList
-		for (int i = 0; i < brokenSentence.size(); i++) {                  
-														  
+	public static void setup() {
+		int indexOfIdentifier;
+		for (int i = 0; i < brokenSentence.size(); i++) {                                                 // sets up charIdentifier for translating by removing
+														  // underscore and adding tag to charIdentifier ArrayList
 
 			if ((indexOfIdentifier = brokenSentence.get(i).indexOf("_")) != -1) {
 				characterType.set(i,brokenSentence.get(i).substring(indexOfIdentifier + 1));
@@ -95,7 +91,7 @@ public class Tokenizer {
 			}
 		}
 
-		Scanner scanner = null; // sets up translator array, first col contains
+		Scanner scanner = null;                         // sets up translator array, first col contains
 								// tag, second col contains translated meaning
 		try {
 			scanner = new Scanner(new File("C:\\Users\\forest\\New folder\\postagger\\postaggerkey"));
@@ -129,10 +125,12 @@ public class Tokenizer {
 			 */
 
 		}
+		
+		
 
 	}
 
-	public void translate() {                                               //translates the pos tags into normal english
+	public static void translate() {
 
 		for (int i = 0; i < characterType.size(); i++) {
 			for (int j = 0; j < key.length; j++) {

@@ -50,5 +50,4 @@ public class Identifier {
 		}
 		return actions;
 	}
-
 }

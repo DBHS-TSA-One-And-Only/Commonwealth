@@ -12,8 +12,10 @@ public class Clause {
     private ArrayList<String> actions;
     private ArrayList<String> clause;
     
-    public Clause(ArrayList<String> tokenizedClause){
-        clause = tokenizedClause;
+    public Clause(ArrayList<ArrayList<String>> clauseBundle){
+        subjects = clauseBundle.get(0);
+        actions = clauseBundle.get(1);
+        clause = clauseBundle.get(2);
         // find subjects/actions using Identifier class and put into
         // subjects/actions private variables
     }
