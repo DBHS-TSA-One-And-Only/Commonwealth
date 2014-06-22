@@ -94,7 +94,7 @@ public class Tokenizer {
 		Scanner scanner = null;                         // sets up translator array, first col contains
 								// tag, second col contains translated meaning
 		try {
-			scanner = new Scanner(new File("C:\\Users\\forest\\New folder\\postagger\\postaggerkey"));
+			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\postaggerkey"));
 		} catch (FileNotFoundException e) {
 			// print error msg via gui
 		}
