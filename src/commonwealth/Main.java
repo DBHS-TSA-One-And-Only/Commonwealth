@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Main {
 
-		public static void main(String[] args) {
+	public static void main(String[] args) {
 		InputStreamReader input = new InputStreamReader(System.in);
 		BufferedReader scanner = new BufferedReader(input);
 		String userInput = "";
@@ -36,8 +36,17 @@ public class Main {
 		}
 
 		splitSentences = Splitter.splitInput(userInput);
+		System.out.println(splitSentences);
 		for (String s : splitSentences) {
 			sentences.add(Tokenizer.splitString(s));
+		}
+                
+                //Tokenizer.spliString(s) returns blank arrays
+                //However, when i put all the code in Tokenizer class into one main method and ran it, it was perfectly fine.
+                
+               
+		for(Sentence s: sentences){
+			System.out.println(s.getSentence());
 		}
 
 		for (Sentence s : sentences) {
@@ -54,6 +63,11 @@ public class Main {
 				}
 			}
 		}
+		
+		for(Clause c: clauses){
+			System.out.println(c);
+		}
 
 	}
+
 }

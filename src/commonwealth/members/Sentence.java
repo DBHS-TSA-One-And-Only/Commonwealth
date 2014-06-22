@@ -33,6 +33,15 @@ public class Sentence {
     	return charIdentifier;
     }
     
+    //for testing purposes
+    public String toString(){
+    	String compiledSentence="";
+    	for(String s : tokenizedSentence){
+    		compiledSentence = compiledSentence + s;
+    	}
+    	return compiledSentence;
+    }
+    
     //add more methods or something
     
 }
