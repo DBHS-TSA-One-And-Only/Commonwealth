@@ -8,10 +8,13 @@ import java.util.ArrayList;
 public class Sentence {
     
     private ArrayList<Clause> clauses;      //an arraylist of all the clauses in the sentence
-    private ArrayList<String> sentence;
+    private ArrayList<String> tokenizedSentence, charIdentifier;
+    String sentence;
     
     // constructor
-    public Sentence(ArrayList<String> tokenizedSentence){
+    public Sentence(ArrayList<String> input, ArrayList<String> posTags){
+    	tokenizedSentence = input;
+    	charIdentifier = posTags;
         //split the sentences using Splitter class
         //put valid clausses in private "clauses" variable
     }
@@ -22,7 +25,12 @@ public class Sentence {
     }
     
     public ArrayList<String> getSentence(){
-        return sentence;
+        return tokenizedSentence;
+    }
+    
+    
+    public ArrayList<String> getPosTags(){
+    	return charIdentifier;
     }
     
     //add more methods or something

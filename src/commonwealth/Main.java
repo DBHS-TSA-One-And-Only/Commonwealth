@@ -1,6 +1,7 @@
 package commonwealth;
 
 import commonwealth.members.Clause;
+import commonwealth.members.Sentence;
 import commonwealth.sentencemanager.Identifier;
 import commonwealth.sentencemanager.Splitter;
 import commonwealth.sentencemanager.Tokenizer;
@@ -15,37 +16,44 @@ import java.util.ArrayList;
  */
 public class Main {
 
-	public static void main(String[] args) {
+		public static void main(String[] args) {
 		InputStreamReader input = new InputStreamReader(System.in);
 		BufferedReader scanner = new BufferedReader(input);
-		String sentence = "";
-		ArrayList<ArrayList<String>> splitStrings = new ArrayList<>(); // contains split fragments of sentences,
-																	   // may or may not be clauses
+		String userInput = "";
+		ArrayList<String> splitSentences = new ArrayList<>(); // contains
+																// sentences
+
+		ArrayList<Sentence> sentences = new ArrayList<>();
 		ArrayList<Clause> clauses = new ArrayList<>();
 
 		System.out.println("Type a sentence and press \'Enter\'");
 		try {
 
-			sentence = scanner.readLine(); // reads input
+			userInput = scanner.readLine(); // reads input
 		} catch (IOException e) {
 
 			e.printStackTrace();
 		}
 
-		splitStrings = Splitter.splitClauses(Tokenizer.splitString(sentence).get(0), 
-				Tokenizer.splitString(sentence).get(1));
-		
-		for (int i = 0; i < splitStrings.size() - 1; i++) {
-			if (Identifier.isClause(splitStrings.get(i), splitStrings.get(i + 1))) {
-				ArrayList<ArrayList<String>> clauseBundle = new ArrayList<>();
-				clauseBundle.add(Identifier.subjectsOf(splitStrings.get(i),splitStrings.get(i + 1)));		//subjects found in clause
-				clauseBundle.add(Identifier.actionsOf(splitStrings.get(i),splitStrings.get(i + 1)));		//actions found in clause
-				clauseBundle.add(splitStrings.get(i));														//clause itself
-				clauses.add(new Clause(clauseBundle));														//create clause, add to arraylist of clauses
+		splitSentences = Splitter.splitInput(userInput);
+		for (String s : splitSentences) {
+			sentences.add(Tokenizer.splitString(s));
+		}
+
+		for (Sentence s : sentences) {
+			ArrayList<ArrayList<String>> splitStrings = Splitter
+					.splitClauses(s);
+			for (int i = 0; i < splitStrings.size(); i += 2) {
+				if (Identifier.isClause(splitStrings.get(i),
+						splitStrings.get(i + 1))) {
+					ArrayList<ArrayList<String>> clauseBundle = new ArrayList<>();
+					clauseBundle.add(Identifier.subjectsOf(splitStrings.get(i), splitStrings.get(i + 1))); // subjects found in clause
+					clauseBundle.add(Identifier.actionsOf(splitStrings.get(i), splitStrings.get(i + 1))); // actions found in clause
+					clauseBundle.add(splitStrings.get(i)); // clause itself
+					clauses.add(new Clause(clauseBundle)); // create clause, add to arraylist of clauses
+				}
 			}
 		}
-		
 
 	}
-
 }

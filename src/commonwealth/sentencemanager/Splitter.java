@@ -2,21 +2,21 @@
 
 package commonwealth.sentencemanager;
 
+import commonwealth.members.Sentence;
 import java.util.ArrayList;
 
 public class Splitter {
 
 	public static ArrayList<String> tokenizedSentence = new ArrayList<>(), charIdentifier = new ArrayList<>();
-	public static ArrayList<ArrayList<String>> clauses = new ArrayList<>(), charIdentifiers = new ArrayList<>();
+	public static ArrayList<ArrayList<String>> clauses = new ArrayList<>();
 	
 	// this method splits the tokenized string sentence into clauses based on
 	// clause conjunction keywords or commas
 	// returns multiple arraylists in an arraylist of arraylists
 	// each arraylist in the returned arraylist will be a POTENTIAL clause
-	public static ArrayList<ArrayList<String>> splitClauses(
-			ArrayList<String> sentence, ArrayList<String> characterType) {
-		tokenizedSentence = sentence;
-		charIdentifier= characterType;
+	public static ArrayList<ArrayList<String>> splitClauses(Sentence input) {
+		tokenizedSentence = input.getSentence();
+		charIdentifier= input.getPosTags();
 		int previousIndex = 0;
 
 		for (int index = 0; index < tokenizedSentence.size(); index++) {
@@ -27,18 +27,18 @@ public class Splitter {
 					identifierHolder.add(charIdentifier.get(i));
 				}
 				clauses.add(clauseHolder);
-				charIdentifiers.add(identifierHolder);
+				clauses.add(identifierHolder);
 				previousIndex = index+1;
 			}
 		}
 		return clauses;
 	}
-        
-        //not quite finished but good enough for now 
-        public ArrayList<String> splitInput(String input){
+	
+	
+	public static ArrayList<String> splitInput(String input){
 		boolean quote = false;
 		int index=0;
-		ArrayList<String> sentences = new ArrayList<String>();
+		ArrayList<String> sentences = new ArrayList<>();
 		
 		for(int i = 0; i < input.length(); i ++){
 			if(input.substring(i,i+1).equals("\"")){

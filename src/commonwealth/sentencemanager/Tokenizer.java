@@ -1,34 +1,34 @@
 package commonwealth.sentencemanager;
 
+import commonwealth.members.Sentence;
+import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import edu.stanford.nlp.tagger.maxent.MaxentTagger;
-
 public class Tokenizer {
 	
 	static String sentence = "", space = " ", punctuation = "";
-	static ArrayList<String> brokenSentence = new ArrayList<>(), characterType = new ArrayList<>(); //characterType cotains labels for corresponding 
+	static ArrayList<String> tokenizedSentence = new ArrayList<>(), charIdentifier = new ArrayList<>(); //charIdentifier cotains labels for corresponding 
 	static MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
 	static String[][] key = new String[40][2];
 	
-	public static ArrayList<ArrayList<String>> splitString(String input) {
+	public static Sentence splitString(String input) {
 		sentence = input;
 		
 
-		for (String s : sentence.split("[@ _ \\t\r]")) {       /*
-									* splits sentence into single words at spaces (not punctuations anymore QQ)
-									* 
-									* Note: will also bring punctuation with word. ie "Hi, I'm Akali" will split into
-									* "Hi,", "I'm" , and "Akali"
-									*/
+		for (String s : sentence.split("[@ _ \\t\r]")) { /*
+														 * splits sentence into single words at spaces (not punctuations anymore QQ)
+														 * 
+														 * Note: will also bring punctuation with word. ie "Hi, I'm Akali" will split into
+														 * "Hi,", "I'm" , and "Akali"
+														 */
 
 			if (!(s.equals(""))) {
 
 				punctuation = s.substring(s.length() - 1);
-				if (punctuation.matches("[, ; : . ? !  ( )  [ ] \" \']")) { // checks last character
-																			// s for punctuation
+				if (punctuation.matches("[, ; : . ? !  ( )  [ ] \"]")) { // checks last character
+                                                                                            // s for punctuation
 
 					s = s.substring(0, s.length() - 1);
 				} else {
@@ -36,32 +36,25 @@ public class Tokenizer {
 					punctuation = "";
 				}
 
-				brokenSentence.add(s);
-				characterType.add("Word");
+				tokenizedSentence.add(s);
+				charIdentifier.add("Word");
 
 				if (!(punctuation.equals(""))) {
 
-					brokenSentence.add(punctuation);
-					characterType.add("Punctuation");
+					tokenizedSentence.add(punctuation);
+					charIdentifier.add("Punctuation");
 				}
 
-				brokenSentence.add(space);
-				characterType.add("space");
+				tokenizedSentence.add(space);
+				charIdentifier.add("space");
 				punctuation = "";
-
 			}
-
 		}
 		Tokenizer.tagger();
 		Tokenizer.setup();
 		Tokenizer.translate();
-		ArrayList<ArrayList<String>> tokenizedString = new ArrayList<>();
-		tokenizedString.add(brokenSentence);
-		tokenizedString.add(characterType);
 		
-		return tokenizedString;
-
-		
+		return new Sentence(tokenizedSentence,charIdentifier);
 
 		// for testing
 		/*
@@ -72,9 +65,9 @@ public class Tokenizer {
 
 	}
 	public static void tagger() {
-		for (int i = 0; i < brokenSentence.size(); i++) {
+		for (int i = 0; i < tokenizedSentence.size(); i++) {
 
-			brokenSentence.set(i, tagger.tagString(brokenSentence.get(i)));
+			tokenizedSentence.set(i, tagger.tagString(tokenizedSentence.get(i)));
 
 			// System.out.println(tagged); //for testing
 		}
@@ -82,16 +75,16 @@ public class Tokenizer {
 
 	public static void setup() {
 		int indexOfIdentifier;
-		for (int i = 0; i < brokenSentence.size(); i++) {                                                 // sets up charIdentifier for translating by removing
+		for (int i = 0; i < tokenizedSentence.size(); i++) { // sets up charIdentifier for translating by removing
 														  // underscore and adding tag to charIdentifier ArrayList
 
-			if ((indexOfIdentifier = brokenSentence.get(i).indexOf("_")) != -1) {
-				characterType.set(i,brokenSentence.get(i).substring(indexOfIdentifier + 1));
-				brokenSentence.set(i,brokenSentence.get(i).substring(0, indexOfIdentifier));
+			if ((indexOfIdentifier = tokenizedSentence.get(i).indexOf("_")) != -1) {
+				charIdentifier.set(i,tokenizedSentence.get(i).substring(indexOfIdentifier + 1));
+				tokenizedSentence.set(i,tokenizedSentence.get(i).substring(0, indexOfIdentifier));
 			}
 		}
 
-		Scanner scanner = null;                         // sets up translator array, first col contains
+		Scanner scanner = null; // sets up translator array, first col contains
 								// tag, second col contains translated meaning
 		try {
 			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\postaggerkey"));
@@ -125,17 +118,16 @@ public class Tokenizer {
 			 */
 
 		}
+		scanner.close();
 		
-		
-
 	}
 
 	public static void translate() {
 
-		for (int i = 0; i < characterType.size(); i++) {
+		for (int i = 0; i < charIdentifier.size(); i++) {
 			for (int j = 0; j < key.length; j++) {
-				if (characterType.get(i).equals(key[j][0])) {
-					characterType.set(i, key[j][1]);
+				if (charIdentifier.get(i).equals(key[j][0])) {
+					charIdentifier.set(i, key[j][1]);
 				}
 			}
 		}
