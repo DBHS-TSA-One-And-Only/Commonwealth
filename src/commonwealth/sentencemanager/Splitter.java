@@ -33,5 +33,26 @@ public class Splitter {
 		}
 		return clauses;
 	}
+        
+        //not finished
+        public ArrayList<String> splitInput(String input){
+		boolean quote = false;
+		int index=0;
+		ArrayList<String> sentences = new ArrayList<String>();
+		
+		for(int i = 0; i < input.length()-1; i ++){
+			if(input.substring(i,i+1).equals("\"")){
+				quote = !quote;
+			}
+			if(input.substring(i, i +1).matches("[.!?]")){
+				if(!quote){
+					sentences.add(input.substring(index, i+1));
+					index=i+1;
+				}
+			}
+		}
+		
+		return sentences;
+	}
 
 }
