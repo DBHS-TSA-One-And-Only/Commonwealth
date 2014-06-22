@@ -34,20 +34,20 @@ public class Splitter {
 		return clauses;
 	}
         
-        //not finished
+        //not quite finished but good enough for now 
         public ArrayList<String> splitInput(String input){
 		boolean quote = false;
 		int index=0;
 		ArrayList<String> sentences = new ArrayList<String>();
 		
-		for(int i = 0; i < input.length()-1; i ++){
+		for(int i = 0; i < input.length(); i ++){
 			if(input.substring(i,i+1).equals("\"")){
 				quote = !quote;
 			}
-			if(input.substring(i, i +1).matches("[.!?]")){
-				if(!quote){
+			if((input.substring(i, i +1).matches("[.!?]") || (i == input.length()-1))){
+				if(!quote && !(input.substring(i-2, i).matches("Mr|Ms|Dr|St|Jr|Sr")) && !(input.substring(i-3, i).matches("Mrs|etc|Gen"))){
 					sentences.add(input.substring(index, i+1));
-					index=i+1;
+					index=i+2;
 				}
 			}
 		}
