@@ -62,13 +62,18 @@ public class Main {
 		for (Sentence s : sentences) {
 			System.out.println(s.getSentence());
 			ArrayList<ArrayList<String>> splitStrings = new ArrayList<>(splitter.splitClauses(s));
-			for(ArrayList<String> a: splitStrings){
+			/*for(ArrayList<String> a: splitStrings){
 				for(String z: a){
 					System.out.println(z);
 				}
 				System.err.println("BREAK");
-			}
-			//System.exit(0);
+			}*/ // for testing
+			//System.exit(0);// for testing
+                        
+                        
+                        //seems to fk up around here, the arrays keep stacking??
+                        
+                      
 			for (int i = 0; i < splitStrings.size(); i += 2) {
 				if (identifier.isClause(splitStrings.get(i),
 						splitStrings.get(i + 1))) {
@@ -81,16 +86,17 @@ public class Main {
 					clauseBundle.add(splitStrings.get(i)); // clause itself
 					clauses.add(new Clause(clauseBundle)); // create clause, add to arraylist of clauses
 				}
-				//System.out.println("BREAK");
+				//System.out.println("BREAK");// for testing
 			}
-			splitStrings.clear();
+			//splitStrings.clear(); //for testing
+                        
 			
-			//System.out.println("BREAKERINO");
+			//System.out.println("BREAKERINO");// for testing
 		}
 		
-		/*for(Clause c: clauses){
-			System.out.println(c);
-		}*/
+		/*for(Clause c: clauses){// for testing
+			System.out.println(c);// for testing
+		}*/// for testing
 
 	}
 
