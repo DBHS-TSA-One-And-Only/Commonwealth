@@ -7,20 +7,21 @@ import java.util.ArrayList;
 
 public class Splitter {
 
-	public static ArrayList<String> tokenizedSentence = new ArrayList<>(), charIdentifier = new ArrayList<>();
-	public static ArrayList<ArrayList<String>> clauses = new ArrayList<>();
+	public ArrayList<String> tokenizedSentence = new ArrayList<>(), charIdentifier = new ArrayList<>();
+	public ArrayList<ArrayList<String>> clauses = new ArrayList<>();
+
 	
 	// this method splits the tokenized string sentence into clauses based on
 	// clause conjunction keywords or commas
 	// returns multiple arraylists in an arraylist of arraylists
 	// each arraylist in the returned arraylist will be a POTENTIAL clause
-	public static ArrayList<ArrayList<String>> splitClauses(Sentence input) {
+	public ArrayList<ArrayList<String>> splitClauses(Sentence input) {
 		tokenizedSentence = input.getSentence();
 		charIdentifier= input.getPosTags();
 		int previousIndex = 0;
 
 		for (int index = 0; index < tokenizedSentence.size(); index++) {
-			if (tokenizedSentence.get(index).matches("[,;:]")) {
+			if (tokenizedSentence.get(index).matches("[,;:]") || (index == tokenizedSentence.size()-1)) {
 				ArrayList<String> clauseHolder = new ArrayList<>(), identifierHolder = new ArrayList<>();
 				for (int i = previousIndex; i <= index; i++) {
 					clauseHolder.add(tokenizedSentence.get(i));
@@ -34,7 +35,8 @@ public class Splitter {
 		return clauses;
 	}
 	
-	public static ArrayList<String> splitInput(String input){
+	
+	public ArrayList<String> splitInput(String input){
 		boolean quote = false;
 		int index=0;
 		ArrayList<String> sentences = new ArrayList<>();
@@ -50,7 +52,8 @@ public class Splitter {
 				}
 			}
 		}
-	
+		
 		return sentences;
 	}
+
 }

@@ -16,20 +16,20 @@ public class Identifier {
 			"Verb base form" };
 
 	// this method returns whether a tokenized partial sentence is a clause or not
-	public static boolean isClause(ArrayList<String> potentialClause, ArrayList<String> charIdentifier) {
-		if ((Identifier.subjectsOf(potentialClause, charIdentifier) != null)
-				&& (Identifier.actionsOf(potentialClause, charIdentifier) != null))
-			return true;
-		return false;
+	public boolean isClause(ArrayList<String> potentialClause, ArrayList<String> charIdentifier) {
+		if ((this.subjectsOf(potentialClause, charIdentifier).isEmpty())
+				&& (this.actionsOf(potentialClause, charIdentifier).isEmpty()))
+			return false;
+		return true;
 	}
 
 	// this method will return a list of subjects in the clause
 	// the method will assume that input parameter "clause" is indeed a clause
-	public static ArrayList<String> subjectsOf(ArrayList<String> clause, ArrayList<String> charIdentifier) {
+	public ArrayList<String> subjectsOf(ArrayList<String> clause, ArrayList<String> charIdentifier) {
 		ArrayList<String> subjects = new ArrayList<>();
 		for (int index = 0; index < charIdentifier.size(); index++) {
 			for (String s : SUBJECTS) {
-				if (charIdentifier.get(index).matches(s)) {
+				if (charIdentifier.get(index).equals(s)) {
 					subjects.add(clause.get(index));
 				}
 			}
@@ -39,15 +39,16 @@ public class Identifier {
 
 	// this method will return a list of actions of the clause
 	// assumption is made that input parameter "clause" is in fact a clause
-	public static ArrayList<String> actionsOf(ArrayList<String> clause, ArrayList<String> charIdentifier) {
+	public ArrayList<String> actionsOf(ArrayList<String> clause, ArrayList<String> charIdentifier) {
 		ArrayList<String> actions = new ArrayList<>();
 		for (int index = 0; index < charIdentifier.size(); index++) {
 			for (String s : VERBS) {
-				if (charIdentifier.get(index).matches(s)) {
+				if (charIdentifier.get(index).equals(s)) {
 					actions.add(clause.get(index));
 				}
 			}
 		}
 		return actions;
 	}
+
 }

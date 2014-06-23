@@ -9,17 +9,19 @@ import java.util.Scanner;
 
 public class Tokenizer {
 
-	static String sentence = "", punctuation = "";
-	static ArrayList<String> tokenizedSentence = new ArrayList<>(),charIdentifier = new ArrayList<>(); // charIdentifier contains labels
+	String sentence = "", punctuation = "";
+	ArrayList<String> tokenizedSentence = new ArrayList<>(),charIdentifier = new ArrayList<>(); // charIdentifier contains labels
 																									   // for corresponding values in tokenizedSentence
-	static MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
-	static String[][] key = new String[40][2];
-	static String[][] contractions = new String[89][2];
+	MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
+	String[][] key = new String[40][2];
+	String[][] contractions = new String[89][2];
+	
+	public Tokenizer(String input){
+		sentence = input;
+	}
 
-	public static Sentence splitString(String input) {
+	public void splitString() {
 
-		Tokenizer.initialize();
-		
 		ArrayList<String> sentenceArray;
 
 		// splits sentence into single words at spaces
@@ -77,11 +79,9 @@ public class Tokenizer {
 			}
 
 		}
-		Tokenizer.tagger();
-		Tokenizer.setup();
-		Tokenizer.translate();
+		
 
-		return new Sentence(tokenizedSentence, charIdentifier);
+		
 
 		// for testing
 		/*
@@ -93,9 +93,10 @@ public class Tokenizer {
 	}
 
 	// tags words in sentence
-	public static void tagger() {
+	public void tagger() {
 		for (int i = 0; i < tokenizedSentence.size(); i++) {
 			tokenizedSentence.set(i, tagger.tagString(tokenizedSentence.get(i)));
+
 			// System.out.println(tagged); //for testing
 		}
 	}
@@ -103,7 +104,7 @@ public class Tokenizer {
 	// sets up charIdentifier for translating by removing underscores and spaces
 	
 
-	public static void setup() {
+	public void setup() {
 		int indexOfIdentifier;
 		for (int i = 0; i < tokenizedSentence.size(); i++) {
 
@@ -130,7 +131,7 @@ public class Tokenizer {
 		// Also sets up translator array, first col contains
 		// tag, second col contains translated meaning
 		// Lastly, sets up contraction array, first col contraction, second col split contraction
-	public static void initialize(){
+	public void initialize(){
 		Scanner scanner = null;
 		try {
 			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\postaggerkey"));
@@ -196,7 +197,7 @@ public class Tokenizer {
 
 	// translates tags into normal english
 
-	public static void translate() {
+	public void translate() {
 
 		for (int i = 0; i < charIdentifier.size(); i++) {
 			for (int j = 0; j < key.length; j++) {
@@ -205,5 +206,18 @@ public class Tokenizer {
 				}
 			}
 		}
+	}
+
+	
+	
+	public Sentence run(){
+		this.splitString();
+		this.tagger();
+		this.setup();
+		this.translate();
+		Sentence sentence = new Sentence(tokenizedSentence, charIdentifier);
+		//tokenizedSentence.clear();
+		//charIdentifier.clear();
+		return sentence;
 	}
 }
