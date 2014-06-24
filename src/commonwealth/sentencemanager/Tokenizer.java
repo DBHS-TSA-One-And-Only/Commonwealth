@@ -10,19 +10,13 @@ import java.util.Scanner;
 public class Tokenizer {
 
 	String sentence = "", punctuation = "";
-	ArrayList<String> tokenizedSentence = new ArrayList<>(),charIdentifier = new ArrayList<>(); // charIdentifier contains labels
-																									   // for corresponding values in tokenizedSentence
 	MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
 	static String[][] key = new String[40][2];
 	static String[][] contractions = new String[89][2];
 	
-	public Tokenizer(String input){
+	public ArrayList<ArrayList<String>> splitString(String input) {
 		sentence = input;
-	}
-
-	public void splitString() {
-
-		ArrayList<String> sentenceArray;
+		ArrayList<String> sentenceArray, tokenizedSentence = new ArrayList<>(), charIdentifier = new ArrayList<>();
 
 		// splits sentence into single words at spaces
 		// Note: will also bring punctuation with word (if applicable)
@@ -34,8 +28,7 @@ public class Tokenizer {
 					sentenceArray.set(i, contractions[r][1].split(" ")[0]);
 					sentenceArray.add(i+1, contractions[r][1].split(" ")[1]);
 				}
-			}
-			
+			}	
 		}
 
 		for (String s : sentenceArray) {
@@ -75,41 +68,40 @@ public class Tokenizer {
 				tokenizedSentence.add(" ");
 				charIdentifier.add("space");
 				punctuation = "";
-
 			}
-
 		}
 		
+		return this.passVar(tokenizedSentence, charIdentifier);	
 
-		
-
-		// for testing
-		/*
-		 * for(String b : brokenSentence) { System.out.println(b); }
-		 * 
-		 * for(String c: characterType){ System.out.println(c); }
-		 */
-
+	}
+	
+	public ArrayList<ArrayList<String>> passVar(ArrayList<String> sentence, ArrayList<String> identifiers){
+		ArrayList<ArrayList<String>> tempArrayHolder = new ArrayList<>();
+		tempArrayHolder.add(sentence);
+		tempArrayHolder.add(identifiers);
+		return tempArrayHolder;
 	}
 
 	// tags words in sentence
-	public void tagger() {
+	public ArrayList<ArrayList<String>> tagger(ArrayList<ArrayList<String>> sentenceBundle) {
+		ArrayList<String> tokenizedSentence = sentenceBundle.get(0);
 		for (int i = 0; i < tokenizedSentence.size(); i++) {
 			tokenizedSentence.set(i, tagger.tagString(tokenizedSentence.get(i)));
-
 			// System.out.println(tagged); //for testing
 		}
+		
+		return this.passVar(tokenizedSentence, sentenceBundle.get(1));
+			
 	}
 
 	// sets up charIdentifier for translating by removing underscores and spaces
 	
-
-	public void setup() {
+	public ArrayList<ArrayList<String>> setup(ArrayList<ArrayList<String>> sentenceBundle) {
+		ArrayList<String> tokenizedSentence = sentenceBundle.get(0), charIdentifier = sentenceBundle.get(1);
 		int indexOfIdentifier;
 		for (int i = 0; i < tokenizedSentence.size(); i++) {
 
-			if ((indexOfIdentifier = tokenizedSentence.get(i).indexOf("_")) != -1) {
-				
+			if ((indexOfIdentifier = tokenizedSentence.get(i).indexOf("_")) != -1) {			
 				
 				if((tokenizedSentence.get(i).substring(indexOfIdentifier + 1, indexOfIdentifier + 2).matches("[, : . $ # ( ) \"]"))){ 
 					charIdentifier.set(i,tokenizedSentence.get(i).substring(0, indexOfIdentifier));
@@ -125,6 +117,8 @@ public class Tokenizer {
 		for(int i =0; i < charIdentifier.size(); i ++){
 			charIdentifier.set(i, charIdentifier.get(i).replaceAll("\\s",""));
 		}
+		
+		return this.passVar(tokenizedSentence, charIdentifier);
 	}
 	
 		// underscore and adding tag to charIdentifier ArrayList
@@ -134,7 +128,7 @@ public class Tokenizer {
 	public void initialize(){
 		Scanner scanner = null;
 		try {
-			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\postaggerkey"));
+			scanner = new Scanner(new File("C:\\Users\\forest\\New folder\\postagger\\postaggerkey"));
 		} catch (FileNotFoundException e) {
 			// print error msg via gui
 		}
@@ -155,7 +149,6 @@ public class Tokenizer {
 					indexCol = 0;
 					indexRow++;
 				}
-				
 
 			}
 
@@ -164,12 +157,12 @@ public class Tokenizer {
 			 * System.out.println(key[r][c]); }}
 			 * 
 			 * for testing
-			 */
+			 */		
 
 		}
 		
 		try {
-			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\contractions"));
+			scanner = new Scanner(new File("C:\\Users\\forest\\New folder\\postagger\\contractions"));
 		} catch (FileNotFoundException e) {
 			// print error msg via gui
 		}
@@ -197,7 +190,9 @@ public class Tokenizer {
 
 	// translates tags into normal english
 
-	public void translate() {
+	public ArrayList<ArrayList<String>> translate(ArrayList<ArrayList<String>> sentenceBundle) {
+		ArrayList<String> charIdentifier = sentenceBundle.get(1);
+		
 
 		for (int i = 0; i < charIdentifier.size(); i++) {
 			for (int j = 0; j < key.length; j++) {
@@ -206,18 +201,16 @@ public class Tokenizer {
 				}
 			}
 		}
+		
+		return this.passVar(sentenceBundle.get(0), charIdentifier);
+		
 	}
+        
+	public Sentence run(String input){
+		
+		ArrayList<ArrayList<String>> sentenceBundle = this.translate(this.setup(this.tagger(this.splitString(input))));
+		
+		return new Sentence(sentenceBundle.get(0), sentenceBundle.get(1));
 
-	
-	
-	public Sentence run(){
-		this.splitString();
-		this.tagger();
-		this.setup();
-		this.translate();
-		Sentence sentence = new Sentence(tokenizedSentence, charIdentifier);
-		//tokenizedSentence.clear();
-		//charIdentifier.clear();
-		return sentence;
 	}
 }
