@@ -22,7 +22,7 @@ public class Identifier {
 	public Identifier(){
 		Scanner scanner = null;
 		try {
-			scanner = new Scanner(new File("C:\\Users\\forest\\New folder\\postagger\\prepositions")).useDelimiter(",");
+			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\prepositions")).useDelimiter(",");
 		} catch (FileNotFoundException e) {
 			// print error msg via gui
 		}

@@ -64,11 +64,11 @@ public class Main {
         String[][] errors = new String[numSentences][numPossibleErrors];
         
         for(int i = 0; i < 2; i++){
-            errors[i][1] = CompleteSentence.errorOf(sentences.get(i));
+            errors[i][0] = CompleteSentence.errorOf(sentences.get(i));
         }
         
         for(int i = 0; i < 2; i++){
-            errors[i][2] = SubjectVerbPluralityAgreement.errorOf(sentences.get(i));
+            errors[i][1] = SubjectVerbPluralityAgreement.errorOf(sentences.get(i));
         }
         
         return errors;

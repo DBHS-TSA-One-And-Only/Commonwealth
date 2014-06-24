@@ -14,6 +14,8 @@ public class Tokenizer {
 	static String[][] key = new String[40][2];
 	static String[][] contractions = new String[89][2];
 	
+	
+
 	public ArrayList<ArrayList<String>> splitString(String input) {
 		sentence = input;
 		ArrayList<String> sentenceArray, tokenizedSentence = new ArrayList<>(), charIdentifier = new ArrayList<>();
@@ -24,11 +26,12 @@ public class Tokenizer {
 		sentenceArray = new ArrayList<>(Arrays.asList(sentence.split("[@ _ \\t\r]")));
 		for(int i =0; i < sentenceArray.size(); i++){
 			for(int r = 0; r < contractions.length;r++){
-				if(sentenceArray.get(i).equals(contractions[r][0])){
+				if(sentenceArray.get(i).equalsIgnoreCase(contractions[r][0])){
 					sentenceArray.set(i, contractions[r][1].split(" ")[0]);
 					sentenceArray.add(i+1, contractions[r][1].split(" ")[1]);
 				}
-			}	
+			}
+			
 		}
 
 		for (String s : sentenceArray) {
@@ -36,14 +39,19 @@ public class Tokenizer {
 			if (!(s.equals(""))) {
 
 				// checks last char of s for punctuation
+				
 				punctuation = s.substring(s.length() - 1);
-				if (punctuation.matches("[, ; : . ? !  ( )  [ ] \" ]")) {
-
-					s = s.substring(0, s.length() - 1);
-				} else {
-
+				if(!punctuation.matches("[, ; : . ? !  ( )  [ ] \" ]")) {
+					
 					punctuation = "";
-				}
+				} else {
+					while(punctuation.matches("[, ; : . ? !  ( )  [ ] \" ]")){
+						
+							s = s.substring(0, s.length() - 1);
+							punctuation = s.substring(s.length() - 1);
+							}
+						
+					}
 				if(s.substring(0,1).matches("[, ; : ( [ ] ) \"]")){
 					tokenizedSentence.add(s.substring(0,1));
 					charIdentifier.add("Punctuation");
@@ -68,10 +76,13 @@ public class Tokenizer {
 				tokenizedSentence.add(" ");
 				charIdentifier.add("space");
 				punctuation = "";
+
 			}
+
 		}
 		
-		return this.passVar(tokenizedSentence, charIdentifier);	
+		return this.passVar(tokenizedSentence, charIdentifier);
+		
 
 	}
 	
@@ -91,17 +102,20 @@ public class Tokenizer {
 		}
 		
 		return this.passVar(tokenizedSentence, sentenceBundle.get(1));
-			
+		
+		
 	}
 
 	// sets up charIdentifier for translating by removing underscores and spaces
 	
+
 	public ArrayList<ArrayList<String>> setup(ArrayList<ArrayList<String>> sentenceBundle) {
 		ArrayList<String> tokenizedSentence = sentenceBundle.get(0), charIdentifier = sentenceBundle.get(1);
 		int indexOfIdentifier;
 		for (int i = 0; i < tokenizedSentence.size(); i++) {
 
-			if ((indexOfIdentifier = tokenizedSentence.get(i).indexOf("_")) != -1) {			
+			if ((indexOfIdentifier = tokenizedSentence.get(i).indexOf("_")) != -1) {
+				
 				
 				if((tokenizedSentence.get(i).substring(indexOfIdentifier + 1, indexOfIdentifier + 2).matches("[, : . $ # ( ) \"]"))){ 
 					charIdentifier.set(i,tokenizedSentence.get(i).substring(0, indexOfIdentifier));
@@ -128,7 +142,7 @@ public class Tokenizer {
 	public void initialize(){
 		Scanner scanner = null;
 		try {
-			scanner = new Scanner(new File("C:\\Users\\forest\\New folder\\postagger\\postaggerkey"));
+			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\postaggerkey"));
 		} catch (FileNotFoundException e) {
 			// print error msg via gui
 		}
@@ -149,6 +163,7 @@ public class Tokenizer {
 					indexCol = 0;
 					indexRow++;
 				}
+				
 
 			}
 
@@ -157,12 +172,13 @@ public class Tokenizer {
 			 * System.out.println(key[r][c]); }}
 			 * 
 			 * for testing
-			 */		
+			 */
+			
 
 		}
 		
 		try {
-			scanner = new Scanner(new File("C:\\Users\\forest\\New folder\\postagger\\contractions"));
+			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\contractions"));
 		} catch (FileNotFoundException e) {
 			// print error msg via gui
 		}
@@ -204,8 +220,11 @@ public class Tokenizer {
 		
 		return this.passVar(sentenceBundle.get(0), charIdentifier);
 		
+		
 	}
-        
+
+	
+	
 	public Sentence run(String input){
 		
 		ArrayList<ArrayList<String>> sentenceBundle = this.translate(this.setup(this.tagger(this.splitString(input))));
