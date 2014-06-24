@@ -13,8 +13,8 @@ public class Tokenizer {
 	ArrayList<String> tokenizedSentence = new ArrayList<>(),charIdentifier = new ArrayList<>(); // charIdentifier contains labels
 																									   // for corresponding values in tokenizedSentence
 	MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
-	String[][] key = new String[40][2];
-	String[][] contractions = new String[89][2];
+	static String[][] key = new String[40][2];
+	static String[][] contractions = new String[89][2];
 	
 	public Tokenizer(String input){
 		sentence = input;

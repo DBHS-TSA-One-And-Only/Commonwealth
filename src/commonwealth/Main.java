@@ -37,13 +37,13 @@ public class Main {
 		
 
 		splitSentences = splitter.splitInput(userInput);
-		//System.out.println(splitSentences);
+		//System.out.println(splitSentences);//for testing
 		//System.out.println("");
 		//System.out.println("");
 		boolean isFirst = true;
 		
 		for (String s : splitSentences) {
-			//System.out.println(s);
+			//System.out.println(s);//for testing
 			//System.out.println("");
 			//System.out.println("");
 			tokenizer = new Tokenizer(s);
@@ -53,30 +53,30 @@ public class Main {
 			}
 			sentences.add(tokenizer.run());
 		}
-		/*for(Sentence s: sentences){
+		/*for(Sentence s: sentences){//for testing
 			System.out.println(s.getSentence());
-		}*/
-                
-                //PLS HELP RIGHT HERE
+			System.out.println(s.getPosTags());
+		}
+		System.exit(0);*/
+		
+		
+		
+		ArrayList<ArrayList<String>> splitStrings;
 
 		for (Sentence s : sentences) {
-			System.out.println(s.getSentence());
-			ArrayList<ArrayList<String>> splitStrings = new ArrayList<>(splitter.splitClauses(s));
-			/*for(ArrayList<String> a: splitStrings){
+			//System.out.println(s.getSentence());//for testing
+			 splitStrings = splitter.splitClauses(s);
+			/*for(ArrayList<String> a: splitStrings){//for testing
 				for(String z: a){
 					System.out.println(z);
 				}
 				System.err.println("BREAK");
-			}*/ // for testing
-			//System.exit(0);// for testing
-                        
-                        
-                        //seems to fk up around here, the arrays keep stacking??
-                        
-                      
+			}*/
+			//System.exit(0);
+			 
+			 
 			for (int i = 0; i < splitStrings.size(); i += 2) {
-				if (identifier.isClause(splitStrings.get(i),
-						splitStrings.get(i + 1))) {
+				if (identifier.isClause(splitStrings.get(i), splitStrings.get(i + 1))) {
 					ArrayList<ArrayList<String>> clauseBundle = new ArrayList<>();
 					
 					System.out.println(identifier.subjectsOf(splitStrings.get(i), splitStrings.get(i + 1)));
@@ -86,18 +86,20 @@ public class Main {
 					clauseBundle.add(splitStrings.get(i)); // clause itself
 					clauses.add(new Clause(clauseBundle)); // create clause, add to arraylist of clauses
 				}
-				//System.out.println("BREAK");// for testing
+				//System.out.println("BREAK");//for testing
 			}
-			//splitStrings.clear(); //for testing
-                        
 			
-			//System.out.println("BREAKERINO");// for testing
+			splitStrings.clear();
+			splitStrings= null;
+			
+			//System.out.println("BREAKERINO"); //for testing
 		}
 		
-		/*for(Clause c: clauses){// for testing
-			System.out.println(c);// for testing
-		}*/// for testing
+		/*for(Clause c: clauses){//for testing
+			System.out.println(c);
+		}*/
 
 	}
 
 }
+
