@@ -68,7 +68,7 @@ public class Main {
         }
         
         for(int i = 0; i < 2; i++){
-            errors[i][1] = SubjectVerbPluralityAgreement.errorOf(sentences.get(i));
+            errors[i][1] = SubjectVerbPluralityAgreement.errorOf(sentences.get(i)).getClauses();
         }
         
         return errors;
