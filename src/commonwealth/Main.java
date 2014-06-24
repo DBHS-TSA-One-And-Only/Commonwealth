@@ -1,5 +1,7 @@
 package commonwealth;
 
+import commonwealth.errors.CompleteSentence;
+import commonwealth.errors.SubjectVerbPluralityAgreement;
 import commonwealth.members.Clause;
 import commonwealth.members.Sentence;
 import commonwealth.sentencemanager.Identifier;
@@ -100,6 +102,23 @@ public class Main {
 		}*/
 
 	}
+        
+        public static String[][] checkForErrors(ArrayList<Sentence> sentences){
+            int numSentences = sentences.size();
+            int numPossibleErrors = 2;
+            
+            String[][] errors = new String[numSentences][numPossibleErrors];
+            
+            for(int i = 0; i < 2; i++){
+                errors[i][1] = CompleteSentence.errorOf(sentences.get(i));
+            }
+            
+            for(int i = 0; i < 2; i++){
+                errors[i][2] = SubjectVerbPluralityAgreement.errorOf(sentences.get(i));
+            }
+            
+            return errors;
+        }
 
 }
 
