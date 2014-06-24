@@ -8,12 +8,11 @@ public class Identifier {
 
 	public static final String[] SUBJECTS = { "Singular or Mass Noun",
 			"Singular Proper Noun", "Plural Proper Noun", "Plural Noun",
-			"Personal Pronoun", "Possessive Pronoun", "Wh-pronoun",
+			"Personal Pronoun", "Possessive Pronoun", "Wh-pronoun","Verb gerund or present participle",
 			"Possessive wh-pronoun", "Wh-determiner" };
 	public static final String[] VERBS = { "3rd person singular present Verb",
 			"non-3rd person singular present Verb", "Verb past participle",
-			"Verb gerund or present participle", "Verb past tense",
-			"Verb base form" };
+			 "Verb past tense", "Verb base form" };
 
 	// this method returns whether a tokenized partial sentence is a clause or not
 	public boolean isClause(ArrayList<String> potentialClause, ArrayList<String> charIdentifier) {
