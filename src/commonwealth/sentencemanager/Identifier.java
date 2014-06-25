@@ -16,9 +16,9 @@ public class Identifier {
 	public static final String[] VERBS = { "3rd person singular present Verb",
 		"non-3rd person singular present Verb", "Verb past participle",
 		 "Verb past tense", "Verb base form" };
-	public static final String PREPOSITIONID = "Preposition or subordinating conjunction";
-	public static ArrayList<String> prepositions;
+	public static ArrayList<String> prepositions = new ArrayList<>();
 	
+	//initializes prepositions arraylist
 	public Identifier(){
 		Scanner scanner = null;
 		try {
@@ -48,14 +48,16 @@ public class Identifier {
 		boolean hasPrep = false, hasVerb = false;
 		ArrayList<String> subjects = new ArrayList<>(), identifiers = new ArrayList<>();
 		for (int index = 0; index < clause.size(); index++) {
-			for(String s: prepositions)
-				if(clause.get(index).equals(s)){
+			for(String s: prepositions){
+				if(clause.get(index).equalsIgnoreCase(s)){
 					hasPrep = true;
 					break;
+				}
 			}
 			for (String s : VERBS) {
 				if (charIdentifier.get(index).equals(s)) {
 					hasVerb = true;
+					break;
 				}
 			}
 			if(!hasPrep){
@@ -64,7 +66,6 @@ public class Identifier {
 						if (charIdentifier.get(index).equals(s)) {
 							subjects.add(clause.get(index));
 							identifiers.add(charIdentifier.get(index));
-							hasVerb = false;
 							hasPrep = false;
 						}
 					}
@@ -102,5 +103,4 @@ public class Identifier {
 		
 		return actionBundle;
 	}
-
 }

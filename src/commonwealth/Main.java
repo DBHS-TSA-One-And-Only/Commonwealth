@@ -33,7 +33,7 @@ public class Main {
 			userInput = scanner.readLine(); // reads input
 		} catch (IOException e) {
 
-			e.printStackTrace();
+			//print gui stuff here
 		}
 			
 
@@ -57,18 +57,18 @@ public class Main {
 		
 	}
 	
-	public static String[][] checkForErrors(ArrayList<Sentence> sentences){
+	public String[][] checkForErrors(ArrayList<Sentence> sentences){
         int numSentences = sentences.size();
         int numPossibleErrors = 2;
-        
+        int i=0;
         String[][] errors = new String[numSentences][numPossibleErrors];
         
-        for(int i = 0; i < 2; i++){
-            errors[i][0] = CompleteSentence.errorOf(sentences.get(i));
-        }
         
-        for(int i = 0; i < 2; i++){
-            errors[i][1] = SubjectVerbPluralityAgreement.errorOf(sentences.get(i)).getClauses();
+        for(Sentence s: sentences){
+        	for(int j =0; j < s.getClauses().size(); j ++){
+        		errors[i][0] = CompleteSentence.errorOf(s.getClauses().get(j));
+        		errors[i][1] = SubjectVerbPluralityAgreement.errorOf(s.getClauses().get(j));
+        	}
         }
         
         return errors;

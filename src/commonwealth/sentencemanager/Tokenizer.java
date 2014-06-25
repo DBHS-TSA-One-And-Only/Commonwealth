@@ -13,9 +13,9 @@ public class Tokenizer {
 	MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
 	static String[][] key = new String[40][2];
 	static String[][] contractions = new String[89][2];
-	
-	
 
+	//splits a string at spaces and stores the pieces into an arraylist
+	//stores the respective identifiers as well
 	public ArrayList<ArrayList<String>> splitString(String input) {
 		sentence = input;
 		ArrayList<String> sentenceArray, tokenizedSentence = new ArrayList<>(), charIdentifier = new ArrayList<>();
@@ -31,15 +31,13 @@ public class Tokenizer {
 					sentenceArray.add(i+1, contractions[r][1].split(" ")[1]);
 				}
 			}
-			
 		}
 
 		for (String s : sentenceArray) {
 
 			if (!(s.equals(""))) {
 
-				// checks last char of s for punctuation
-				
+				// checks last char of s for punctuation				
 				punctuation = s.substring(s.length() - 1);
 				if(!punctuation.matches("[, ; : . ? !  ( )  [ ] \" ]")) {
 					
@@ -78,20 +76,13 @@ public class Tokenizer {
 				punctuation = "";
 
 			}
-
 		}
 		
 		return this.passVar(tokenizedSentence, charIdentifier);
 		
-
 	}
 	
-	public ArrayList<ArrayList<String>> passVar(ArrayList<String> sentence, ArrayList<String> identifiers){
-		ArrayList<ArrayList<String>> tempArrayHolder = new ArrayList<>();
-		tempArrayHolder.add(sentence);
-		tempArrayHolder.add(identifiers);
-		return tempArrayHolder;
-	}
+
 
 	// tags words in sentence
 	public ArrayList<ArrayList<String>> tagger(ArrayList<ArrayList<String>> sentenceBundle) {
@@ -107,8 +98,6 @@ public class Tokenizer {
 	}
 
 	// sets up charIdentifier for translating by removing underscores and spaces
-	
-
 	public ArrayList<ArrayList<String>> setup(ArrayList<ArrayList<String>> sentenceBundle) {
 		ArrayList<String> tokenizedSentence = sentenceBundle.get(0), charIdentifier = sentenceBundle.get(1);
 		int indexOfIdentifier;
@@ -135,10 +124,11 @@ public class Tokenizer {
 		return this.passVar(tokenizedSentence, charIdentifier);
 	}
 	
-		// underscore and adding tag to charIdentifier ArrayList
-		// Also sets up translator array, first col contains
-		// tag, second col contains translated meaning
-		// Lastly, sets up contraction array, first col contraction, second col split contraction
+		
+	// Sets up translator array, first col contains
+	// tag, second col contains translated meaning
+	// Also sets up contraction array, first col 
+	//contraction, second col split contraction
 	public void initialize(){
 		Scanner scanner = null;
 		try {
@@ -163,7 +153,6 @@ public class Tokenizer {
 					indexCol = 0;
 					indexRow++;
 				}
-				
 
 			}
 
@@ -173,8 +162,6 @@ public class Tokenizer {
 			 * 
 			 * for testing
 			 */
-			
-
 		}
 		
 		try {
@@ -187,8 +174,7 @@ public class Tokenizer {
 
 			int indexRow = 0, indexCol = 0;
 			@SuppressWarnings("resource")
-			Scanner scanner2 = new Scanner(scanner.nextLine())
-					.useDelimiter(",");
+			Scanner scanner2 = new Scanner(scanner.nextLine()).useDelimiter(",");
 
 			while (scanner2.hasNext()) {
 				contractions[indexRow][indexCol] = scanner2.next();
@@ -205,11 +191,9 @@ public class Tokenizer {
 	}
 
 	// translates tags into normal english
-
 	public ArrayList<ArrayList<String>> translate(ArrayList<ArrayList<String>> sentenceBundle) {
 		ArrayList<String> charIdentifier = sentenceBundle.get(1);
-		
-
+	
 		for (int i = 0; i < charIdentifier.size(); i++) {
 			for (int j = 0; j < key.length; j++) {
 				if (charIdentifier.get(i).equals(key[j][0])) {
@@ -218,13 +202,18 @@ public class Tokenizer {
 			}
 		}
 		
-		return this.passVar(sentenceBundle.get(0), charIdentifier);
-		
-		
+		return this.passVar(sentenceBundle.get(0), charIdentifier);	
 	}
-
 	
+	//a method used for passing arraylists in between tokenizer methods
+	public ArrayList<ArrayList<String>> passVar(ArrayList<String> sentence, ArrayList<String> identifiers){
+		ArrayList<ArrayList<String>> tempArrayHolder = new ArrayList<>();
+		tempArrayHolder.add(sentence);
+		tempArrayHolder.add(identifiers);
+		return tempArrayHolder;
+	}
 	
+	//calls all methods needed to tokenize a sentence
 	public Sentence run(String input){
 		
 		ArrayList<ArrayList<String>> sentenceBundle = this.translate(this.setup(this.tagger(this.splitString(input))));

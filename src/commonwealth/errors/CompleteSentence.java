@@ -2,21 +2,20 @@
 
 package commonwealth.errors;
 
-import commonwealth.members.Sentence;
+import commonwealth.members.Clause;
 
-public class CompleteSentence{
+public class CompleteSentence {
 
-    private static String error = "not a complete sentence";
-    
-    public static String errorOf(Sentence s){
-        boolean flag = false;
-        
-        //checking method or alogrithm goes here
-        
-        if(flag)
-            return error;
-        else
-            return "";
-    }
-    
+	private static String error = "not a complete sentence";
+
+	public static String errorOf(Clause c) {
+
+		if (c.isIndependent()) {
+			return "success msg goes here";
+		}
+
+		return error;
+
+	}
+
 }

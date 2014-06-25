@@ -4,66 +4,70 @@
 package commonwealth.errors;
 
 import commonwealth.members.Clause;
+import java.util.ArrayList;
 
+public class SubjectVerbPluralityAgreement {
 
-public class SubjectVerbPluralityAgreement{
-    
-    //array of singular subjects
-    //public static final String[] singularSUBJECTS = {};
-    
-    //array of singular vernss
-    //public static final String[] singularVERBS = {};
-    
-    private static String error = "subject and verb plurality do not agree";
-    
-    public static String errorOf(Clause s){
-        boolean flag = false;
-        
-        //checking method or alogrithm goes here
-        //pretty sure that this will not work correctly
-        //im still working on it
-        //pls helperino
-        
-        //foreach(String subject : s.getSubjects()){
-        //  forreach(String verb : s.getActions()){
-        //      if(subject.ifSingularSubject() && verb.ifSingularVerb())
-        //          return error;
-        //      else if (!subject.ifSingularSubject() && !&& verb.ifSingularVerb())
-        //          return error;
-        //      else
-        //          return "correct sva";
-        //  }
-        //}
-        
-        if(flag)
-            return error;
-        else
-            return "";
-    }
-    
-    //checks to see if the subject is part of the singular
-    //subject array
-    
-    //public static boolean ifSingularSubject(String[] array){
-    //   foreach (String sub : array){
-    //    if (this.equals(sub))
-    //        return true;
-    //    else 
-    //        return false;
-    //    }
-    //}
-    
-    //checks to see if the verb is part of the singular
-    //action array
-    
-    //public static boolean ifSingularVerb(String[] array){
-    //   foreach (String verb : array){
-    //    if (this.equals(verb))
-    //        return true;
-    //    else 
-    //        return false;
-    //    }
-    //}
-    
+	// array of singular subject tags
+	public static final String[] SINGULAR_SUBJECT_TAGS = {
+			"Singular or Mass Noun", "Singular Proper Noun" };
+
+	// array of singular subjects
+	public static final String[] SINGULAR_SUBJECTS = { "I", "You", "He", "She", "It" };
+
+	// string of singular action tag
+	public static final String SINGULAR_ACTION_TAG = "3rd person singular present Verb";
+
+	private static final String error = "subject and verb agreement error";
+
+	public static String errorOf(Clause c) {
+
+		// checking method or alogrithm goes here
+		ArrayList<String> subjects = c.getSubjects();
+		ArrayList<String> subjectIdentifiers = c.getSubjectIdentifiers();
+		ArrayList<String> actionIdentifiers = c.getActionIdentifiers();
+
+		for (int i = 0; i < c.getSubjects().size(); i++) {
+			if(!(singularSubject(subjectIdentifiers.get(i), subjects.get(i)) == singularAction(actionIdentifiers
+					.get(i)))) {
+				return error;
+				// replace with gui print method
+			}
+		}
+
+		return "";
+		// print out something good via gui
+	}
+
+	public static boolean singularSubject(String subject, String subjectIdentifier) {
+		
+		if (subjectIdentifier.equals("Verb gerund or present participle")){
+			if(subject.endsWith("s")){
+				return false;
+			}
+		}
+		
+		for (String s : SINGULAR_SUBJECT_TAGS) {
+			if (subjectIdentifier.equals(s)) {
+				return true;
+			}
+		}
+		
+		for (String s : SINGULAR_SUBJECTS) {
+			if (subject.equalsIgnoreCase(s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean singularAction(String actionIdentifier) {
+
+		if (actionIdentifier.equals(SINGULAR_ACTION_TAG)) {
+			return true;
+		}
+
+		return false;
+	}
+
 }
-

@@ -12,7 +12,7 @@ public class Splitter {
 
 	
 	// this method splits the tokenized string sentence into clauses based on
-	// clause conjunction keywords or commas
+	// clause commas, semicolons, or colons
 	// returns multiple arraylists in an arraylist of arraylists
 	// each arraylist in the returned arraylist will be a POTENTIAL clause
 	public ArrayList<ArrayList<String>> splitClauses(Sentence input) {
@@ -21,7 +21,13 @@ public class Splitter {
 		int previousIndex = 0;
 
 		for (int index = 0; index < tokenizedSentence.size(); index++) {
-			if (tokenizedSentence.get(index).matches("[,;:]") || (index == tokenizedSentence.size()-1)) {
+			if (tokenizedSentence.get(index).equals(",")){
+				if(tokenizedSentence.get(index+2).matches("[for|and|nor|but|or|yet|so]")){
+					
+				}
+			}
+			if ((tokenizedSentence.get(index).matches("[;:]") || (index == tokenizedSentence.size()-1))||(tokenizedSentence.get(index).equals(",")&&(tokenizedSentence.get(index+2).matches("[for|and|nor|but|or|yet|so]")))) {
+						
 				ArrayList<String> clauseHolder = new ArrayList<>(), identifierHolder = new ArrayList<>();
 				for (int i = previousIndex; i <= index; i++) {
 					clauseHolder.add(tokenizedSentence.get(i));
@@ -30,12 +36,16 @@ public class Splitter {
 				clauses.add(clauseHolder);
 				clauses.add(identifierHolder);
 				previousIndex = index+1;
+					
 			}
 		}
 		return clauses;
 	}
 	
 	
+	//splits userinput into multiple sentences at periods,
+	//exclamation marks, or question marks, returns
+	//arraylist of strings that are sentences
 	public ArrayList<String> splitInput(String input){
 		boolean quote = false;
 		int index=0;
@@ -55,5 +65,4 @@ public class Splitter {
 		
 		return sentences;
 	}
-
 }
