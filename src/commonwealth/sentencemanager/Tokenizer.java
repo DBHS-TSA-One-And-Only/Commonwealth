@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Tokenizer {
 
 	String sentence = "", punctuation = "";
-	MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
 	static String[][] key = new String[40][2];
 	static String[][] contractions = new String[89][2];
 
@@ -85,7 +84,8 @@ public class Tokenizer {
 
 
 	// tags words in sentence
-	public ArrayList<ArrayList<String>> tagger(ArrayList<ArrayList<String>> sentenceBundle) {
+	public ArrayList<ArrayList<String>> tagger(ArrayList<ArrayList<String>> sentenceBundle) throws IOException, ClassNotFoundException{
+		MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
 		ArrayList<String> tokenizedSentence = sentenceBundle.get(0);
 		for (int i = 0; i < tokenizedSentence.size(); i++) {
 			tokenizedSentence.set(i, tagger.tagString(tokenizedSentence.get(i)));
@@ -129,7 +129,7 @@ public class Tokenizer {
 	// tag, second col contains translated meaning
 	// Also sets up contraction array, first col 
 	//contraction, second col split contraction
-	public void initialize(){
+	public static void initialize(){
 		Scanner scanner = null;
 		try {
 			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\postaggerkey"));
@@ -214,8 +214,8 @@ public class Tokenizer {
 	}
 	
 	//calls all methods needed to tokenize a sentence
-	public Sentence run(String input){
-		
+	public Sentence run(String input) throws IOException, ClassNotFoundException {
+		MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
 		ArrayList<ArrayList<String>> sentenceBundle = this.translate(this.setup(this.tagger(this.splitString(input))));
 		
 		return new Sentence(sentenceBundle.get(0), sentenceBundle.get(1));
