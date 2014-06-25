@@ -182,6 +182,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     
     private static void configureAll(){
         Identifier.initialize();
+        Tokenizer.initialize();
     }
        
     private static void initialize(){
