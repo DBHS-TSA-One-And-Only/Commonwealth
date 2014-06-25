@@ -42,7 +42,8 @@ public class Main {
 		//System.out.println("");
 		//System.out.println("");
 		boolean isFirst = true;
-		
+		Identifier.initialize();
+                
 		for (String s : splitSentences) {
 			//System.out.println(s);//for testing
 			//System.out.println("");

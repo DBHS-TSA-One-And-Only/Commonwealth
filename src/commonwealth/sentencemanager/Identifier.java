@@ -19,7 +19,7 @@ public class Identifier {
 	public static ArrayList<String> prepositions = new ArrayList<>();
 	
 	//initializes prepositions arraylist
-	public Identifier(){
+	public static void initialize(){
 		Scanner scanner = null;
 		try {
 			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\prepositions")).useDelimiter(",");
