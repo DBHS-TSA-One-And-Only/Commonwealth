@@ -11,6 +11,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
 	
@@ -26,6 +28,7 @@ public class Main {
 		Tokenizer tokenizer = new Tokenizer();
 		Splitter splitter = new Splitter();
 		//Identifier identifier = new Identifier();
+                Tokenizer.initialize();
 
 		System.out.println("Type a sentence and press \'Enter\'");
 		try {
@@ -45,15 +48,20 @@ public class Main {
 		Identifier.initialize();
                 
 		for (String s : splitSentences) {
-			//System.out.println(s);//for testing
-			//System.out.println("");
-			//System.out.println("");
-			
-			if(isFirst){
-				tokenizer.initialize();
-				isFirst = false;
-			}
-			sentences.add(tokenizer.run(s));
+                    try {
+                        //System.out.println(s);//for testing
+                        //System.out.println("");
+                        //System.out.println("");
+                        
+                        if(isFirst){
+                            isFirst = false;
+                        }
+                        sentences.add(tokenizer.run(s));
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 		}
 		
 	}
@@ -67,7 +75,7 @@ public class Main {
         
         for(Sentence s: sentences){
         	for(int j =0; j < s.getClauses().size(); j ++){
-        		errors[i][0] = CompleteSentence.errorOf(s.getClauses().get(j));
+        		errors[i][0] = CompleteSentence.errorOf(s.getClauses());
         		errors[i][1] = SubjectVerbPluralityAgreement.errorOf(s.getClauses().get(j));
         	}
         }
