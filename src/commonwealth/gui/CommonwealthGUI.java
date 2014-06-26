@@ -9,8 +9,13 @@ package commonwealth.gui;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -172,8 +177,66 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     }
                            
     private void checkButtonActionPerformed(ActionEvent evt) throws FileNotFoundException, IndexOutOfBoundsException {                                             
-        String problem = inputTextField.getText();
+    	//InputStreamReader input = new InputStreamReader(System.in);
+		//BufferedReader scanner = new BufferedReader(input);
+		String userInput = inputTextField.getText();
+		ArrayList<String> splitSentences = new ArrayList<>(); // contains sentences
+		ArrayList<Sentence> sentences = new ArrayList<>();
+		//ArrayList<Clause> clauses = new ArrayList<>();
+		Tokenizer tokenizer = new Tokenizer();
+		Splitter splitter = new Splitter();
+		//Identifier identifier = new Identifier();
+		//String[][] errorList;
+    	
+    	
+    	String text = inputTextField.getText();
         String answer = null;
+        
+        //try {
+        //
+		//	//userInput = scanner.readLine(); // reads input
+		//} catch (IOException e) {
+        //
+		//	//print gui stuff here
+		//}
+			
+
+		splitSentences = splitter.splitInput(userInput);
+		//print(splitSentences);//for testing
+		//print("");
+		//print("");
+		boolean isFirst = true;
+		Identifier.initialize();
+		Tokenizer.initialize();
+		for (String s : splitSentences) {
+			print(s);
+			print("  a  ");
+			print("");
+			
+			if(isFirst){
+				
+				isFirst = false;
+			}
+                    try {
+                        sentences.add(tokenizer.run(s));
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+			for(int i = 0; i< 1; i ++){
+				for(String z: sentences.get(i).getSentence()){
+					print(z);
+				}
+			}
+			
+			print("  b  ");
+			print("");
+		}
+		
+		
+		
+		//print(Main.formatErrors(Main.checkForErrors(sentences)));
     }                                           
 
     private void outputTextFieldActionPerformed(ActionEvent evt) {                                                
