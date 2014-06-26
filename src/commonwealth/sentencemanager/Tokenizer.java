@@ -12,6 +12,7 @@ public class Tokenizer {
 	String sentence = "", punctuation = "";
 	static String[][] key = new String[40][2];
 	static String[][] contractions = new String[89][2];
+        MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
 
 	//splits a string at spaces and stores the pieces into an arraylist
 	//stores the respective identifiers as well
@@ -84,8 +85,8 @@ public class Tokenizer {
 
 
 	// tags words in sentence
-	public ArrayList<ArrayList<String>> tagger(ArrayList<ArrayList<String>> sentenceBundle) throws IOException, ClassNotFoundException{
-		MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
+	public ArrayList<ArrayList<String>> tagger(ArrayList<ArrayList<String>> sentenceBundle){
+		
 		ArrayList<String> tokenizedSentence = sentenceBundle.get(0);
 		for (int i = 0; i < tokenizedSentence.size(); i++) {
 			tokenizedSentence.set(i, tagger.tagString(tokenizedSentence.get(i)));
@@ -215,7 +216,7 @@ public class Tokenizer {
 	
 	//calls all methods needed to tokenize a sentence
 	public Sentence run(String input) throws IOException, ClassNotFoundException {
-		MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
+		
 		ArrayList<ArrayList<String>> sentenceBundle = this.translate(this.setup(this.tagger(this.splitString(input))));
 		
 		return new Sentence(sentenceBundle.get(0), sentenceBundle.get(1));
