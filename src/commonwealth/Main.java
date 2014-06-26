@@ -28,7 +28,7 @@ public class Main {
 		Tokenizer tokenizer = new Tokenizer();
 		Splitter splitter = new Splitter();
 		//Identifier identifier = new Identifier();
-                Tokenizer.initialize();
+		//String[][] errorList;
 
 		System.out.println("Type a sentence and press \'Enter\'");
 		try {
@@ -46,27 +46,41 @@ public class Main {
 		//System.out.println("");
 		boolean isFirst = true;
 		Identifier.initialize();
-                
+		Tokenizer.initialize();
 		for (String s : splitSentences) {
+			System.out.println(s);
+			System.out.println("  a  ");
+			System.out.println("");
+			
+			if(isFirst){
+				
+				isFirst = false;
+			}
                     try {
-                        //System.out.println(s);//for testing
-                        //System.out.println("");
-                        //System.out.println("");
-                        
-                        if(isFirst){
-                            isFirst = false;
-                        }
                         sentences.add(tokenizer.run(s));
                     } catch (IOException ex) {
                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                     }
+			for(int i = 0; i< 1; i ++){
+				for(String z: sentences.get(i).getSentence()){
+					System.out.println(z);
+				}
+			}
+			
+			System.out.println("  b  ");
+			System.out.println("");
 		}
+		
+		
+		
+		System.out.println(formatErrors(checkForErrors(sentences)));
+		
 		
 	}
 	
-	public String[][] checkForErrors(ArrayList<Sentence> sentences){
+	public static String[][] checkForErrors(ArrayList<Sentence> sentences){
         int numSentences = sentences.size();
         int numPossibleErrors = 2;
         int i=0;
@@ -74,14 +88,43 @@ public class Main {
         
         
         for(Sentence s: sentences){
-        	for(int j =0; j < s.getClauses().size(); j ++){
-        		errors[i][0] = CompleteSentence.errorOf(s.getClauses());
-        		errors[i][1] = SubjectVerbPluralityAgreement.errorOf(s.getClauses().get(j));
+        	if(s.getClauses()!= null){
+        		for(int j =0; j < s.getClauses().size(); j ++){
+        			errors[i][0] = CompleteSentence.errorOf(s.getClauses());
+        			errors[i][1] = SubjectVerbPluralityAgreement.errorOf(s.getClauses().get(j));
+        		}
         	}
         }
         
         return errors;
     }
+	
+	public static ArrayList<String> formatErrors(String[][] errors){
+		String errorIdentifiers = "";
+		ArrayList<String> allErrors = new ArrayList<>();
+		for(int i =0; i < errors.length; i++){
+			for(int j =0; j <errors[i].length; j++){
+				
+					errorIdentifiers = errorIdentifiers + errors[i][j] + "\n";
+			}
+			allErrors.add(errorIdentifiers);
+		}
+		
+		return allErrors;
+	}
+	
+	public static String printErrors(ArrayList<String> errors){
+		int sentenceNum = 1;
+		String errorMessage = "";
+		for(int i = 0; i < errors.size(); i++){
+			if(!(errors.get(i).equals(""))){
+				errorMessage = errorMessage + "Sentence " + sentenceNum + ": " + errors.get(i);
+			}
+			sentenceNum++;
+		}
+		return null;
+	}
 
 }
+
 
