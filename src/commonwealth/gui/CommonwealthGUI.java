@@ -1,17 +1,14 @@
-package commonwealth.gui;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+package postagger;
 
-import commonwealth.Main;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -27,9 +24,13 @@ import javax.swing.KeyStroke;
 public class CommonwealthGUI extends javax.swing.JFrame {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5148636010798525188L;
+
+	/**
      * Creates new form MainFrame
      */
-    @SuppressWarnings("serial")
     public CommonwealthGUI() {
         initComponents();
     }
@@ -41,7 +42,8 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         outputTextField = new JTextField();
         titleLabel = new JLabel();
         checkButton = new JButton();
-        jScrollPane1 = new JScrollPane();
+        jScrollPane1_INPUT = new JScrollPane();
+        jScrollPanel_OUTPUT = new JScrollPane();
         inputTextField = new JTextArea();
      
         introLabel = new JLabel();
@@ -56,7 +58,8 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         setLocation(dim.width/2 - getSize().width/2, dim.height/2 - getSize().height/2);
         //setIconImage(icon);
 
-        outputTextField.setFont(new java.awt.Font("Monospaced", 0, 13)); // NOI18N
+        outputTextField.setFont(new java.awt.Font("Comic Sans MS", 0, 13)); // NOI18N
+        
         outputTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 outputTextFieldActionPerformed(evt);
@@ -64,14 +67,14 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         });
         outputTextField.setEditable(false);
 
-        titleLabel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleLabel.setText("Welcome to Commonwealth");
         titleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         titleLabel.setPreferredSize(new java.awt.Dimension(280, 23));
 
         checkButton.setBackground(java.awt.Color.red);
-        checkButton.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        checkButton.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         checkButton.setText("Check");
         checkButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         checkButton.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +82,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
                 try {
                     checkButtonActionPerformed(evt);
                 } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
+                    
                     e.printStackTrace();
                 } catch (IndexOutOfBoundsException e){
                     e.printStackTrace();
@@ -89,18 +92,24 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         });
         checkButton.setEnabled(false);
        
+        inputTextField.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
         inputTextField.setColumns(20);
         inputTextField.setLineWrap(true);
         inputTextField.setRows(5);
         inputTextField.setPreferredSize(new java.awt.Dimension(200, 100));
-        jScrollPane1.setViewportView(inputTextField);
+        jScrollPane1_INPUT.setViewportView(inputTextField);
         inputTextField.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "check");
         inputTextField.getActionMap().put("check", new AbstractAction() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 2073586348665522911L;
+
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     checkButtonActionPerformed(evt);
                 } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
+                    
                     print("File not found :(");
                 } catch (IndexOutOfBoundsException e){
                     print("Oops, something went wrong. Try Again!");
@@ -110,13 +119,13 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         });
         inputTextField.setEnabled(false);
                 
-        introLabel.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        introLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         introLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         introLabel.setText("Please Type In Sentences Below:");
         introLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         introLabel.setPreferredSize(new java.awt.Dimension(280, 18));
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         jLabel1.setText("Output:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -140,7 +149,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
                         .addGap(79, 79, 79)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(outputTextField)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane1_INPUT, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -151,7 +160,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(introLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1_INPUT, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(checkButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -165,7 +174,6 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     }
                            
     private void checkButtonActionPerformed(ActionEvent evt) throws FileNotFoundException, IndexOutOfBoundsException {                                             
-    	//evt.getActionCommand();
     	
     	String userInput = inputTextField.getText();
     	
@@ -175,7 +183,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     }                                           
 
     private void outputTextFieldActionPerformed(ActionEvent evt) {                                                
-        // TODO add your handling code here:
+      
     }                      
     
     //private static void configureAll(){
@@ -241,11 +249,11 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify
     private JLabel introLabel;
     private JLabel jLabel1;
-    private JScrollPane jScrollPane1;
-    public JTextField outputTextField;
+    private JScrollPane jScrollPane1_INPUT;
+    private JScrollPane jScrollPanel_OUTPUT;
+    private JTextField outputTextField;
     private JButton checkButton;
     public JTextArea inputTextField;
-    
     private JLabel titleLabel;
     // End of variables declaration                  
 }
