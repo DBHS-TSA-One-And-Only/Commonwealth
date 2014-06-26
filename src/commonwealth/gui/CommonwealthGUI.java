@@ -48,9 +48,8 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         titleLabel = new JLabel();
         checkButton = new JButton();
         jScrollPane1_INPUT = new JScrollPane();
-        jScrollPanel_OUTPUT = new JScrollPane();
+        //jScrollPanel_OUTPUT = new JScrollPane();
         inputTextField = new JTextArea();
-     
         introLabel = new JLabel();
         jLabel1 = new JLabel();
 
@@ -255,7 +254,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     private JLabel introLabel;
     private JLabel jLabel1;
     private JScrollPane jScrollPane1_INPUT;
-    private JScrollPane jScrollPanel_OUTPUT;
+    //private JScrollPane jScrollPanel_OUTPUT;
     private JTextField outputTextField;
     private JButton checkButton;
     public JTextArea inputTextField;
