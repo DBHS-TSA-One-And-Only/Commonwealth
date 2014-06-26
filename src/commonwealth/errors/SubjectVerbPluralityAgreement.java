@@ -10,7 +10,7 @@ public class SubjectVerbPluralityAgreement {
 
 	// array of singular subject tags
 	public static final String[] SINGULAR_SUBJECT_TAGS = {
-			"Singular or Mass Noun", "Singular Proper Noun" };
+			"Singular or Mass Noun", "Singular Proper Noun","Wh-pronoun", "Wh-determiner" };
 
 	// array of singular subjects
 	public static final String[] SINGULAR_SUBJECTS = { "I", "You", "He", "She", "It" };
@@ -18,9 +18,9 @@ public class SubjectVerbPluralityAgreement {
 	// string of singular action tag
 	public static final String SINGULAR_ACTION_TAG = "3rd person singular present Verb";
 
-	private static final String error = "subject and verb agreement error";
-
+	
 	public static String errorOf(Clause c) {
+		String error = "subject and verb agreement error";
 
 		// checking method or alogrithm goes here
 		ArrayList<String> subjects = c.getSubjects();

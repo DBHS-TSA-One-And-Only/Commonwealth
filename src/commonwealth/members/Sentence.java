@@ -9,17 +9,19 @@ import java.util.ArrayList;
 
 public class Sentence {
     
-    private ArrayList<Clause> clauses;      //an arraylist of all the clauses in the sentence
+    private ArrayList<Clause> clauses = new ArrayList<>();      //an arraylist of all the clauses in the sentence
     private ArrayList<String> tokenizedSentence, charIdentifier;
     private ArrayList<ArrayList<String>> splitStrings;
     Splitter splitter = new Splitter();
     Identifier identifier = new Identifier();
     
     
+    
     // constructor
     public Sentence(ArrayList<String> input, ArrayList<String> posTags){
     	tokenizedSentence = input;
     	charIdentifier = posTags;
+    	initializeClauses();
     	
     	//for testing
 		//System.out.println("BREAK");    

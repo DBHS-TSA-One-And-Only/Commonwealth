@@ -10,9 +10,9 @@ import java.util.Scanner;
 public class Tokenizer {
 
 	String sentence = "", punctuation = "";
+	MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
 	static String[][] key = new String[40][2];
 	static String[][] contractions = new String[89][2];
-        MaxentTagger tagger = new MaxentTagger("taggers/english-bidirectional-distsim.tagger");
 
 	//splits a string at spaces and stores the pieces into an arraylist
 	//stores the respective identifiers as well
@@ -34,49 +34,54 @@ public class Tokenizer {
 		}
 
 		for (String s : sentenceArray) {
+			/*
+			 * System.out.println(z); System.out.println();
+			 * System.out.println();
+			 */
 
 			if (!(s.equals(""))) {
-
-				// checks last char of s for punctuation				
-				punctuation = s.substring(s.length() - 1);
-				if(!punctuation.matches("[, ; : . ? !  ( )  [ ] \" ]")) {
-					
-					punctuation = "";
-				} else {
-					while(punctuation.matches("[, ; : . ? !  ( )  [ ] \" ]")){
-						
-							s = s.substring(0, s.length() - 1);
-							punctuation = s.substring(s.length() - 1);
-							}
-						
-					}
-				if(s.substring(0,1).matches("[, ; : ( [ ] ) \"]")){
-					tokenizedSentence.add(s.substring(0,1));
-					charIdentifier.add("Punctuation");
-					tokenizedSentence.add(s.substring(1,s.length()));
-					charIdentifier.add("Word");
-					tokenizedSentence.add(" ");
-					charIdentifier.add("space");
-					punctuation = "";
-					continue;
 				
-				} 
+				
 
-				tokenizedSentence.add(s);
-				charIdentifier.add("Word");
-
-				if (!(punctuation.equals(""))) {
-
-					tokenizedSentence.add(punctuation);
-					charIdentifier.add("Punctuation");
+				// checks last char of s for punctuation
+				punctuation = s.substring(s.length() - 1);
+				if (punctuation.matches("[, ; : . ? !  ( )  [ ] \" ]")) {
+					s = s.substring(0, s.length() - 1);
+				} else {
+					punctuation = "";
 				}
 
+			}
+
+			if (s.substring(0, 1).matches("[, ; : ( [ ] ) \"]")) {
+				tokenizedSentence.add(s.substring(0, 1));
+				charIdentifier.add("Punctuation");
+				tokenizedSentence.add(s.substring(1, s.length()));
+				charIdentifier.add("Word");
 				tokenizedSentence.add(" ");
 				charIdentifier.add("space");
 				punctuation = "";
+				continue;
 
 			}
+
+			
+			tokenizedSentence.add(s);
+			charIdentifier.add("Word");
+			
+
+			if (!(punctuation.equals(""))) {
+
+				tokenizedSentence.add(punctuation);
+				charIdentifier.add("Punctuation");
+			}
+
+			tokenizedSentence.add(" ");
+			charIdentifier.add("space");
+			punctuation = "";
+
 		}
+		
 		
 		return this.passVar(tokenizedSentence, charIdentifier);
 		
@@ -85,8 +90,7 @@ public class Tokenizer {
 
 
 	// tags words in sentence
-	public ArrayList<ArrayList<String>> tagger(ArrayList<ArrayList<String>> sentenceBundle){
-		
+	public ArrayList<ArrayList<String>> tagger(ArrayList<ArrayList<String>> sentenceBundle) {
 		ArrayList<String> tokenizedSentence = sentenceBundle.get(0);
 		for (int i = 0; i < tokenizedSentence.size(); i++) {
 			tokenizedSentence.set(i, tagger.tagString(tokenizedSentence.get(i)));
@@ -215,7 +219,7 @@ public class Tokenizer {
 	}
 	
 	//calls all methods needed to tokenize a sentence
-	public Sentence run(String input) throws IOException, ClassNotFoundException {
+	public Sentence run(String input){
 		
 		ArrayList<ArrayList<String>> sentenceBundle = this.translate(this.setup(this.tagger(this.splitString(input))));
 		

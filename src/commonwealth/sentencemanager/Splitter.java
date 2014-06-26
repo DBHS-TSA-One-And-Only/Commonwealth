@@ -65,4 +65,5 @@ public class Splitter {
 		
 		return sentences;
 	}
+
 }

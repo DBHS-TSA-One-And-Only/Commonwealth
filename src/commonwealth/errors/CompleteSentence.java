@@ -8,9 +8,10 @@ import java.util.ArrayList;
 
 public class CompleteSentence {
 
-	private static String error = "not a complete sentence";
+	
 
 	public static String errorOf(ArrayList<Clause> clauses) {
+		String error = "not a complete sentence";
 		boolean independent = false;
 		for(Clause c: clauses){
 			if (c.isIndependent()) {
