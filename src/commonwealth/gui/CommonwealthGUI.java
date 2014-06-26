@@ -1,25 +1,20 @@
+package commonwealth.gui;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-package commonwealth.gui;
 
+import commonwealth.Main;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -27,15 +22,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
-import commonwealth.Main;
-import commonwealth.errors.CompleteSentence;
-import commonwealth.errors.SubjectVerbPluralityAgreement;
-import commonwealth.members.Clause;
-import commonwealth.members.Sentence;
-import commonwealth.postools.POS;
-import commonwealth.sentencemanager.Identifier;
-import commonwealth.sentencemanager.Splitter;
-import commonwealth.sentencemanager.Tokenizer;
+
 
 public class CommonwealthGUI extends javax.swing.JFrame {
 
@@ -56,6 +43,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         checkButton = new JButton();
         jScrollPane1 = new JScrollPane();
         inputTextField = new JTextArea();
+     
         introLabel = new JLabel();
         jLabel1 = new JLabel();
 
@@ -177,65 +165,23 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     }
                            
     private void checkButtonActionPerformed(ActionEvent evt) throws FileNotFoundException, IndexOutOfBoundsException {                                             
-    	//InputStreamReader input = new InputStreamReader(System.in);
-		//BufferedReader scanner = new BufferedReader(input);
-		String userInput = inputTextField.getText();
-		ArrayList<String> splitSentences = new ArrayList<>(); // contains sentences
-		ArrayList<Sentence> sentences = new ArrayList<>();
-		//ArrayList<Clause> clauses = new ArrayList<>();
-		Tokenizer tokenizer = new Tokenizer();
-		Splitter splitter = new Splitter();
-		//Identifier identifier = new Identifier();
-		//String[][] errorList;
+    	//evt.getActionCommand();
     	
+    	String userInput = inputTextField.getText();
     	
-    	String text = inputTextField.getText();
-        String answer = null;
-        
-        //try {
-        //
-		//	//userInput = scanner.readLine(); // reads input
-		//} catch (IOException e) {
-        //
-		//	//print gui stuff here
-		//}
-			
-
-		splitSentences = splitter.splitInput(userInput);
-		//print(splitSentences);//for testing
-		//print("");
-		//print("");
-		boolean isFirst = true;
-		Identifier.initialize();
-		Tokenizer.initialize();
-		for (String s : splitSentences) {
-			print(s);
-			print("  a  ");
-			print("");
-			
-			if(isFirst){
-				
-				isFirst = false;
-			}
-                    try {
-                        sentences.add(tokenizer.run(s));
-                    } catch (IOException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-			for(int i = 0; i< 1; i ++){
-				for(String z: sentences.get(i).getSentence()){
-					print(z);
-				}
-			}
-			
-			print("  b  ");
-			print("");
-		}
+    	Main.start(userInput);
+    	//Question q = null;
+    	
+    /*	if(problem.length() != 0){
+    		//q = determineQuestionType(problem);
+    		if(q != null)
+    			answer = q.solve();
+    	}*/
 		
-		
-		
+		/*if(answer != null)
+			print(answer);
+		else
+			print("Invalid Question");*/
 		//print(Main.formatErrors(Main.checkForErrors(sentences)));
     }                                           
 
@@ -243,12 +189,13 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                      
     
-    private static void configureAll(){
-        Identifier.initialize();
-        Tokenizer.initialize();
-    }
-       
-    private static void initialize(){
+    //private static void configureAll(){
+    //    Identifier.initialize();
+    //    Tokenizer.initialize();
+    //}
+    
+    
+    private void initialize(){
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -271,29 +218,31 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws FileNotFoundException{
+    public void start() throws FileNotFoundException{
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         
-        CommonwealthGUI.initialize();
+        this.initialize();
         final CommonwealthGUI GUI = new CommonwealthGUI();
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
             public void run() {
                 GUI.setVisible(true);
             }
         });
         
         GUI.inputTextField.setText("Configuring...");
-        configureAll();
+        //configureAll();
         GUI.inputTextField.setText("");
         GUI.inputTextField.setEnabled(true);
         GUI.checkButton.setEnabled(true);
+        GUI.outputTextField.setEnabled(true);
     }
     
-    private void print(String s){
+    public void print(String s){
         outputTextField.setText(s);
     }
     
@@ -305,9 +254,10 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     private JLabel introLabel;
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
-    private JTextField outputTextField;
+    public JTextField outputTextField;
     private JButton checkButton;
-    private JTextArea inputTextField;
+    public JTextArea inputTextField;
+    
     private JLabel titleLabel;
     // End of variables declaration                  
 }
