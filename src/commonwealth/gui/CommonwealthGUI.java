@@ -4,20 +4,25 @@
  * and open the template in the editor.
  */
 
-package postagger;
+package commonwealth.gui;
+
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
+
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+
+import commonwealth.Main;
 
 
 
