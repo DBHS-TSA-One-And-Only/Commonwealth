@@ -56,10 +56,13 @@ public class Splitter {
 				quote = !quote;
 			}
 			if((input.substring(i, i +1).matches("[.!?]") || (i == input.length()-1))){
-				if(!quote && !(input.substring(i-2, i).matches("Mr|Ms|Dr|St|Jr|Sr|co")) && !(input.substring(i-3, i).matches("Mrs|etc|Gen|inc"))){
-					sentences.add(input.substring(index, i+1));
-					index=i+2;
+				//if(input.length()>3){
+					if(!quote && !(input.substring(i-2, i).matches("Mr|Ms|Dr|St|Jr|Sr|co")) && !(input.substring(i-3, i).matches("Mrs|etc|Gen|inc"))){
+						sentences.add(input.substring(index, i+1));
+						index=i+2;
+				//}
 				}
+				
 			}
 		}
 		

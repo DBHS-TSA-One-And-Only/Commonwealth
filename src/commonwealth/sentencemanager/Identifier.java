@@ -36,8 +36,8 @@ public class Identifier {
 
 	// this method returns whether a tokenized partial sentence is a clause or not
 	public boolean isClause(ArrayList<String> potentialClause, ArrayList<String> charIdentifier) {
-		if ((this.subjectsOf(potentialClause, charIdentifier).isEmpty())
-				&& (this.actionsOf(potentialClause, charIdentifier).isEmpty()))
+		if ((this.subjectsOf(potentialClause, charIdentifier).get(0).isEmpty())
+				|| (this.actionsOf(potentialClause, charIdentifier).get(0).isEmpty()))
 			return false;
 		return true;
 	}

@@ -169,20 +169,9 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     	
     	String userInput = inputTextField.getText();
     	
-    	Main.start(userInput);
-    	//Question q = null;
+    	//Main.start(userInput);
     	
-    /*	if(problem.length() != 0){
-    		//q = determineQuestionType(problem);
-    		if(q != null)
-    			answer = q.solve();
-    	}*/
-		
-		/*if(answer != null)
-			print(answer);
-		else
-			print("Invalid Question");*/
-		//print(Main.formatErrors(Main.checkForErrors(sentences)));
+    	print(Main.start(userInput));
     }                                           
 
     private void outputTextFieldActionPerformed(ActionEvent evt) {                                                
@@ -218,7 +207,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public void start() throws FileNotFoundException{
+    public void run() throws FileNotFoundException{
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -228,7 +217,6 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         this.initialize();
         final CommonwealthGUI GUI = new CommonwealthGUI();
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
             public void run() {
                 GUI.setVisible(true);
             }

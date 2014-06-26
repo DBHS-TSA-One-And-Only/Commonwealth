@@ -25,16 +25,17 @@ public class Main {
 		
 	
 		
-            try {
-                GUI.start();
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
+		try {
+			GUI.run();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	//	Thread t1 = new Thread();
 		pls = GUI.inputTextField.getText();
 	
 	}
-	public static void start(String fal) {
+	public static String start(String fal) {
 		//InputStreamReader input = new InputStreamReader(System.in);
 		//BufferedReader scanner = new BufferedReader(input);
 	
@@ -73,28 +74,24 @@ public class Main {
 		Identifier.initialize();
 		Tokenizer.initialize();
 		for (String s : splitSentences) {
-                    try {
-                        /*System.out.println(s);
-                        System.out.println("  a  ");
-                        System.out.println("");*/
-                        sentences.add(tokenizer.run(s));
-                        
-                        
-                        //System.out.println("");
-                        //System.out.println("");
-                    } catch (IOException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+			/*System.out.println(s);
+			System.out.println("  a  ");
+			System.out.println("");*/
+			sentences.add(tokenizer.run(s));
+			
+			/*int i =0;
+			for(String z: sentences.get(i).getSentence()){
+				System.out.println(z);
+			}*/
+			
 		}
-		
+		//System.out.println(sentences.size());
 		//System.out.println(userInput);
 		//System.exit(0);
-		GUI.print(printErrors(formatErrors(checkForErrors(sentences))));
-		System.out.println(printErrors(formatErrors(checkForErrors(sentences))));
+		//GUI.print(printErrors(formatErrors(checkForErrors(sentences))));
+		//System.out.println(printErrors(formatErrors(checkForErrors(sentences))));
 		
-		
+		return printErrors(formatErrors(checkForErrors(sentences)));
 		
 	}
 	
@@ -107,18 +104,44 @@ public class Main {
 	public static String[][] checkForErrors(ArrayList<Sentence> sentences){
         int numSentences = sentences.size();
         int numPossibleErrors = 2;
-        int i=0;
+        int i=0, j = 1;
         String[][] errors = new String[numSentences][numPossibleErrors];
         
-        
+       // Identifier id = new Identifier();
         for(Sentence s: sentences){
         	if(s.getClauses()!= null){
-        		for(int j =0; j < s.getClauses().size(); j ++){
-        			errors[i][0] = CompleteSentence.errorOf(s.getClauses());
-        			errors[i][1] = SubjectVerbPluralityAgreement.errorOf(s.getClauses().get(j));
+        		/*for(Clause c: s.getClauses()){
+        			System.out.println(id.actionsOf(c.getClause(), s.getPosTags()).get(0).isEmpty());
+        			for(String z: s.getPosTags())
+        				System.out.println(z);
+        			System.out.println(id.isClause(c.getClause(), s.getPosTags()));
+        		}*/
+        		errors[i][0] = CompleteSentence.errorOf(s.getClauses());
+        		//System.out.println(errors[i][0]);
+        		if(s.getClauses().size()!=0){
+        		for(j =1; j < s.getClauses().size()+1; j ++){
+        			errors[i][j] = SubjectVerbPluralityAgreement.errorOf(s.getClauses().get(j-1));
+        			
         		}
+        		
+        		
+        		}else{
+        			if(!errors[i][0].equals("not a complete sentence"))
+        				errors[i][j] = "not a complete sentence";
+        		}
+        		i++;
         	}
+        	
         }
+        //System.out.println(errors[i-1][0]);
+        //System.out.println(errors[i-1][1]);
+       // System.exit(0);
+       /* for(int z =0; z < errors.length; z++){
+			for(int j =0; j <errors[z].length; j++){
+				System.out.println(errors[0][1]);
+			}
+        }
+        System.out.println("break");*/
         
         return errors;
     }
@@ -127,14 +150,21 @@ public class Main {
 		String errorIdentifiers = "";
 		ArrayList<String> allErrors = new ArrayList<>();
 		for(int i =0; i < errors.length; i++){
-			for(int j =0; j <errors[i].length; j++){
-				
-					errorIdentifiers = errorIdentifiers + errors[i][j] + "\n";
+			for(int j =0; j <errors[i].length -1; j++){
+					if(!(errors[i][j].equals(""))){
+						errorIdentifiers = errorIdentifiers + errors[i][j] + "\n";
+					}
+			
+		
+			}	
+			//System.out.println(errorIdentifiers);
+			if(errorIdentifiers.equals("")){
+				errorIdentifiers = "no errors found" + "\n";
 			}
 			allErrors.add(errorIdentifiers);
 			errorIdentifiers = "";
 		}
-		
+		//System.out.println(allErrors);
 		return allErrors;
 	}
 	
@@ -142,11 +172,12 @@ public class Main {
 		int sentenceNum = 1;
 		String errorMessage = "";
 		for(int i = 0; i < errors.size(); i++){
-			if(!(errors.get(i).matches("[| ]"))){
-				errorMessage = errorMessage + "Sentence " + sentenceNum + ": " + errors.get(i);
-			}
+			
+			errorMessage = errorMessage + "Sentence " + sentenceNum + ": " + errors.get(i) ;
+			
 			sentenceNum++;
 		}
+		//System.out.println(errorMessage);
 		return errorMessage;
 	}
 
