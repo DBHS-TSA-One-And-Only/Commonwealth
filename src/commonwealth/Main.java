@@ -74,23 +74,26 @@ public class Main {
 		Identifier.initialize();
 		Tokenizer.initialize();
 		for (String s : splitSentences) {
-			/*System.out.println(s);
-			System.out.println("  a  ");
+			//System.out.println(s);
+			/*System.out.println("  a  ");
 			System.out.println("");*/
 			sentences.add(tokenizer.run(s));
-			
+                      //  for(String z: (tokenizer.run(s)).getPosTags()){
+                        //System.out.println(z);
+                        //}
+			/*System.exit(0);
 			int i =0;
 			for(String z: sentences.get(i).getClauses().get(0).getActions()){
 				System.out.println(z);
-			}
+			}*/
 			
 		}
 		//System.out.println(sentences.size());
 		//System.out.println(userInput);
-		System.exit(0);
+		//System.exit(0);
 		//GUI.print(printErrors(formatErrors(checkForErrors(sentences))));
 		//System.out.println(printErrors(formatErrors(checkForErrors(sentences))));
-		          System.out.println(sentences.get(0).getClauses().get(5));
+		          //System.out.println(sentences.get(0).getClauses().get(5));
 		return printErrors(formatErrors(checkForErrors(sentences)));
 		
 	}
@@ -123,22 +126,23 @@ public class Main {
                                 //for(String c: s.getClauses().get(j-1).getSubjectIdentifiers()){
                                    // System.out.println(c);
                                 //}
-                                Identifier identifier = new Identifier();
+                               /* Identifier identifier = new Identifier();
                                 for(int z = 0; z <s.getClauses().size(); z++){
-                                    System.out.println((identifier.actionsOf(s.getClauses().get(z).getActions(), 
-                                            s.getClauses().get(z).getActionIdentifiers())).get(0).get(0));
+                                  System.out.println((identifier.actionsOf(s.getClauses().get(z).getActions(), 
+                                            s.getClauses().get(z).getActionIdentifiers())).get(1).get(0));
                                 
-                                    System.exit(0);
+                                    System.exit(0);*/
         			errors[i][j] = SubjectVerbPluralityAgreement.errorOf(s.getClauses().get(j-1));
         		//	System.out.println(errors[i][j]);
                           //      System.out.println(j);
-                                }
+                                
+                                //}
                             }
         		
         		
         		}else{
         			if(!errors[i][0].equals("not a complete sentence"))
-        				errors[i][j] = "1not a complete sentence";
+        				errors[i][j] = "not a complete sentence";
         		}
         		i++;
         	}

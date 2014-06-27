@@ -17,6 +17,8 @@ public class SubjectVerbPluralityAgreement {
 
 	// string of singular action tag
 	public static final String SINGULAR_ACTION_TAG = "3rd person singular present Verb"; //"Verb base form";
+        
+        public static final String PAST_TENSE_TAG = "Verb past tense";
 
 	
 	public static String errorOf(Clause c) {
@@ -26,8 +28,13 @@ public class SubjectVerbPluralityAgreement {
 		ArrayList<String> subjects = c.getSubjects();
 		ArrayList<String> subjectIdentifiers = c.getSubjectIdentifiers();
 		ArrayList<String> actionIdentifiers = c.getActionIdentifiers();
+                
+                
 
 		for (int i = 0; i < c.getSubjects().size(); i++) {
+                    if(pastTenseAction(actionIdentifiers.get(i))){
+                        return "";
+                    }
 			if((singularSubject(subjects.get(i), subjectIdentifiers.get(i)) == singularAction(actionIdentifiers
 					.get(i)))) {
 				return "";
@@ -69,5 +76,12 @@ public class SubjectVerbPluralityAgreement {
 
 		return false;
 	}
+        
+        public static boolean pastTenseAction(String actionIdentifier){
+            if(actionIdentifier.equals(PAST_TENSE_TAG)){
+                return true;
+            }
+            return false;
+        }
 
 }

@@ -104,6 +104,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
                     print("File not found :(");
                 } catch (IndexOutOfBoundsException e){
                     print("Oops, something went wrong. Try Again!");
+                    e.printStackTrace();
                 }
                 
             }
