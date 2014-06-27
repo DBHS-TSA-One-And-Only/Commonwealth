@@ -22,6 +22,7 @@ public class Identifier {
 	public static void initialize(){
 		Scanner scanner = null;
 		try {
+                    //DBHS-TSA-One-And-Only\\Commonwealth\\prepositions
 			scanner = new Scanner(new File("prepositions")).useDelimiter(",");
 		} catch (FileNotFoundException e) {
 			// print error msg via gui
@@ -36,11 +37,15 @@ public class Identifier {
 
 	// this method returns whether a tokenized partial sentence is a clause or not
 	public boolean isClause(ArrayList<String> potentialClause, ArrayList<String> charIdentifier) {
-		if ((this.subjectsOf(potentialClause, charIdentifier).get(0).isEmpty())
-				|| (this.actionsOf(potentialClause, charIdentifier).get(0).isEmpty()))
-			return false;
-		return true;
-	}
+            for(int i =0; i <this.subjectsOf(potentialClause,charIdentifier).size(); i++){
+                if ((this.subjectsOf(potentialClause, charIdentifier).get(i).isEmpty())
+                        || (this.actionsOf(potentialClause, charIdentifier).get(i).isEmpty())){
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
 	// this method will return a list of subjects in the clause
 	// the method will assume that input parameter "clause" is indeed a clause
