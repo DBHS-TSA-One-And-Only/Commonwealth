@@ -10,8 +10,8 @@ public class Identifier {
 
     public static final String[] SUBJECTS = {"Singular or Mass Noun",
         "Singular Proper Noun", "Plural Proper Noun", "Plural Noun",
-        "Personal Pronoun", "Wh-pronoun", "Verb gerund or present participle",
-        "Possessive wh-pronoun", "Wh-determiner"};
+        "Personal Pronoun", "Wh-pronoun", "Verb gerund or present participle", 
+        "Wh-determiner"};
     public static final String[] VERBS = {"3rd person singular present Verb",
         "non-3rd person singular present Verb", "Verb past participle",
         "Verb past tense", "Verb base form"};
