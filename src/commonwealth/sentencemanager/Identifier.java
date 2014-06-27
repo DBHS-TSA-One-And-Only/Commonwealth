@@ -28,9 +28,9 @@ public class Identifier {
 			// print error msg via gui
 		}
 
-		while (scanner.hasNextLine()) {
+		while (scanner.hasNext()) {
 			
-				prepositions.add(scanner.nextLine());
+				prepositions.add(scanner.next());
 				
 		}
 	}
