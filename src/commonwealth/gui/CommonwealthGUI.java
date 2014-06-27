@@ -38,10 +38,11 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.getContentPane();
         
-        outputTextField = new JTextField();
+        outputTextField = new JTextArea();
         titleLabel = new JLabel();
         checkButton = new JButton();
         jScrollPane1 = new JScrollPane();
+        jScrollPane2 = new JScrollPane();
         inputTextField = new JTextArea();
      
         introLabel = new JLabel();
@@ -57,12 +58,9 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         //setIconImage(icon);
 
         outputTextField.setFont(new java.awt.Font("Monospaced", 0, 13)); // NOI18N
-        outputTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                outputTextFieldActionPerformed(evt);
-            }
-        });
+
         outputTextField.setEditable(false);
+        outputTextField.setLineWrap(true);
 
         titleLabel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -94,6 +92,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         inputTextField.setRows(5);
         inputTextField.setPreferredSize(new java.awt.Dimension(200, 100));
         jScrollPane1.setViewportView(inputTextField);
+        jScrollPane2.setViewportView(outputTextField);
         inputTextField.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "check");
         inputTextField.getActionMap().put("check", new AbstractAction() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,7 +139,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(outputTextField)
+                            .addComponent(jScrollPane2)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -158,7 +157,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -173,11 +172,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     	//Main.start(userInput);
     	
     	print(Main.start(userInput));
-    }                                           
-
-    private void outputTextFieldActionPerformed(ActionEvent evt) {                                                
-        // TODO add your handling code here:
-    }                      
+    }                                                                
     
     //private static void configureAll(){
     //    Identifier.initialize();
@@ -243,7 +238,8 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     private JLabel introLabel;
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
-    public JTextField outputTextField;
+    private JScrollPane jScrollPane2;
+    public JTextArea outputTextField;
     private JButton checkButton;
     public JTextArea inputTextField;
     
