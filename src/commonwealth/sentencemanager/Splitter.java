@@ -21,11 +21,7 @@ public class Splitter {
 		int previousIndex = 0;
 
 		for (int index = 0; index < tokenizedSentence.size(); index++) {
-			if (tokenizedSentence.get(index).equals(",")){
-				if(tokenizedSentence.get(index+2).matches("[for|and|nor|but|or|yet|so]")){
-					
-				}
-			}
+			
 			if ((tokenizedSentence.get(index).matches("[;:]") || (index == tokenizedSentence.size()-1))||(tokenizedSentence.get(index).equals(",")&&(tokenizedSentence.get(index+2).matches("[for|and|nor|but|or|yet|so]")))) {
 						
 				ArrayList<String> clauseHolder = new ArrayList<>(), identifierHolder = new ArrayList<>();
