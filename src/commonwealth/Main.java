@@ -78,11 +78,11 @@ public class Main {
 			/*System.out.println("  a  ");
 			System.out.println("");*/
 			sentences.add(tokenizer.run(s));
-                      //  for(String z: (tokenizer.run(s)).getPosTags()){
-                        //System.out.println(z);
-                        //}
-			/*System.exit(0);
-			int i =0;
+                        for(String z: (tokenizer.run(s)).getPosTags()){
+                        System.out.println(z);
+                        }
+			System.exit(0);
+			/*int i =0;
 			for(String z: sentences.get(i).getClauses().get(0).getActions()){
 				System.out.println(z);
 			}*/
@@ -164,7 +164,7 @@ public class Main {
 	public static ArrayList<String> formatErrors(String[][] errors){
 		String errorIdentifiers = "";
 		ArrayList<String> allErrors = new ArrayList<>();
-                System.out.println(errors[0].length);
+               // System.out.println(errors[0].length);
 		for(int i =0; i < errors.length; i++){
 			for(int j =0; j <errors[i].length ; j++){
                           //  System.out.println(errors[i][j]);

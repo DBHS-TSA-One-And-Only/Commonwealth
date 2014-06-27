@@ -35,8 +35,14 @@ public class SubjectVerbPluralityAgreement {
                         return "";
                     }
                 }
-                int i =0;
-                while(i<subjects.size()-1){
+                int i =0, index;
+                if(subjectIdentifiers.size()<actionIdentifiers.size()){
+                    index= subjectIdentifiers.size();
+                }
+                else{
+                    index = actionIdentifiers.size();
+                }
+                while(i<index){
 		//for (int i = 0; i < subjects.size(); i++) {
                     
 			if((singularSubject(subjects.get(i), subjectIdentifiers.get(i)) == singularAction(actionIdentifiers
