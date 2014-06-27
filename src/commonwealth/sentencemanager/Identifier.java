@@ -92,7 +92,7 @@ public class Identifier {
 			for (String s : VERBS) {
 				if (charIdentifier.get(index).equals(s)) {
 					actions.add(clause.get(index));
-					identifiers.add(clause.get(index));
+					identifiers.add(charIdentifier.get(index));
 				}
 			}
 		}

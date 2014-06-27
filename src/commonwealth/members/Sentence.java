@@ -45,7 +45,7 @@ public class Sentence {
 				clauseBundle.add(identifier.subjectsOf(splitStrings.get(i), splitStrings.get(i + 1)).get(0)); // subjects found in clause
 				clauseBundle.add(identifier.subjectsOf(splitStrings.get(i), splitStrings.get(i + 1)).get(1)); // subject identifiers
 				clauseBundle.add(identifier.actionsOf(splitStrings.get(i), splitStrings.get(i + 1)).get(0));  // actions found in clause
-				clauseBundle.add(identifier.subjectsOf(splitStrings.get(i), splitStrings.get(i + 1)).get(1)); //action identifiers 
+				clauseBundle.add(identifier.actionsOf(splitStrings.get(i), splitStrings.get(i + 1)).get(1)); //action identifiers 
 				clauseBundle.add(splitStrings.get(i)); 														  // clause itself
 				clauses.add(new Clause(clauseBundle)); 														  // create clause, add to arraylist of clauses
 			}

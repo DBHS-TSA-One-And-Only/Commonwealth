@@ -16,7 +16,7 @@ public class SubjectVerbPluralityAgreement {
 	public static final String[] SINGULAR_SUBJECTS = { "I", "You", "He", "She", "It" };
 
 	// string of singular action tag
-	public static final String SINGULAR_ACTION_TAG = "3rd person singular present Verb";
+	public static final String SINGULAR_ACTION_TAG = "3rd person singular present Verb"; //"Verb base form";
 
 	
 	public static String errorOf(Clause c) {
@@ -28,14 +28,14 @@ public class SubjectVerbPluralityAgreement {
 		ArrayList<String> actionIdentifiers = c.getActionIdentifiers();
 
 		for (int i = 0; i < c.getSubjects().size(); i++) {
-			if(!(singularSubject(subjectIdentifiers.get(i), subjects.get(i)) == singularAction(actionIdentifiers
+			if((singularSubject(subjects.get(i), subjectIdentifiers.get(i)) == singularAction(actionIdentifiers
 					.get(i)))) {
-				return error;
+				return "";
 				// replace with gui print method
 			}
 		}
 
-		return "";
+		return error;
 		// print out something good via gui
 	}
 

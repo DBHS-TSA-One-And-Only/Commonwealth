@@ -79,15 +79,15 @@ public class Main {
 			System.out.println("");*/
 			sentences.add(tokenizer.run(s));
 			
-			/*int i =0;
-			for(String z: sentences.get(i).getSentence()){
+			int i =0;
+			for(String z: sentences.get(i).getClauses().get(0).getActions()){
 				System.out.println(z);
-			}*/
+			}
 			
 		}
 		//System.out.println(sentences.size());
 		//System.out.println(userInput);
-		//System.exit(0);
+		System.exit(0);
 		//GUI.print(printErrors(formatErrors(checkForErrors(sentences))));
 		//System.out.println(printErrors(formatErrors(checkForErrors(sentences))));
 		
@@ -119,15 +119,26 @@ public class Main {
         		errors[i][0] = CompleteSentence.errorOf(s.getClauses());
         		//System.out.println(errors[i][0]);
         		if(s.getClauses().size()!=0){
-        		for(j =1; j < s.getClauses().size()+1; j ++){
+                            for(j =1; j < s.getClauses().size()+1; j ++){
+                                //for(String c: s.getClauses().get(j-1).getSubjectIdentifiers()){
+                                   // System.out.println(c);
+                                //}
+                                Identifier identifier = new Identifier();
+                                for(int z = 0; z <s.getClauses().size(); z++){
+                                    System.out.println((identifier.actionsOf(s.getClauses().get(z).getActions(), 
+                                            s.getClauses().get(z).getActionIdentifiers())).get(0).get(0));
+                                
+                                    System.exit(0);
         			errors[i][j] = SubjectVerbPluralityAgreement.errorOf(s.getClauses().get(j-1));
-        			
-        		}
+        		//	System.out.println(errors[i][j]);
+                          //      System.out.println(j);
+                                }
+                            }
         		
         		
         		}else{
         			if(!errors[i][0].equals("not a complete sentence"))
-        				errors[i][j] = "not a complete sentence";
+        				errors[i][j] = "1not a complete sentence";
         		}
         		i++;
         	}
@@ -149,15 +160,21 @@ public class Main {
 	public static ArrayList<String> formatErrors(String[][] errors){
 		String errorIdentifiers = "";
 		ArrayList<String> allErrors = new ArrayList<>();
+                System.out.println(errors[0].length);
 		for(int i =0; i < errors.length; i++){
-			for(int j =0; j <errors[i].length -1; j++){
+			for(int j =0; j <errors[i].length ; j++){
+                          //  System.out.println(errors[i][j]);
+                            //System.out.println("blank");
+                            if(errors[i][j]!=null){
 					if(!(errors[i][j].equals(""))){
 						errorIdentifiers = errorIdentifiers + errors[i][j] + "\n";
+              //                                  System.out.println(errorIdentifiers);
 					}
+                            }
 			
 		
-			}	
-			//System.out.println(errorIdentifiers);
+			}
+	//		System.out.println(errorIdentifiers);
 			if(errorIdentifiers.equals("")){
 				errorIdentifiers = "no errors found" + "\n";
 			}
@@ -177,7 +194,7 @@ public class Main {
 			
 			sentenceNum++;
 		}
-		//System.out.println(errorMessage);
+		System.out.println(errorMessage);
 		return errorMessage;
 	}
 
