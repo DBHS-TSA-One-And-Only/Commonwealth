@@ -90,7 +90,7 @@ public class Main {
 		System.exit(0);
 		//GUI.print(printErrors(formatErrors(checkForErrors(sentences))));
 		//System.out.println(printErrors(formatErrors(checkForErrors(sentences))));
-		
+		          System.out.println(sentences.get(0).getClauses().get(5));
 		return printErrors(formatErrors(checkForErrors(sentences)));
 		
 	}
