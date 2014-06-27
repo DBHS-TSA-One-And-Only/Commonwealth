@@ -35,11 +35,11 @@ public class Main {
 		pls = GUI.inputTextField.getText();
 	
 	}
-	public static String start(String fal) {
+	public static String start(String input) {
 		//InputStreamReader input = new InputStreamReader(System.in);
 		//BufferedReader scanner = new BufferedReader(input);
 	
-		String userInput = fal;
+		String userInput = input;
 		ArrayList<String> splitSentences = new ArrayList<>(); // contains sentences
 		ArrayList<Sentence> sentences = new ArrayList<>();
 		//ArrayList<Clause> clauses = new ArrayList<>();

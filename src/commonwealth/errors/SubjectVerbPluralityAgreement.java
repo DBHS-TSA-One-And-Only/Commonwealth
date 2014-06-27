@@ -30,16 +30,21 @@ public class SubjectVerbPluralityAgreement {
 		ArrayList<String> actionIdentifiers = c.getActionIdentifiers();
                 
                 
-
-		for (int i = 0; i < c.getSubjects().size(); i++) {
-                    if(pastTenseAction(actionIdentifiers.get(i))){
+                for(int j = 0; j < actionIdentifiers.size(); j++){
+                    if(pastTenseAction(actionIdentifiers.get(j))){
                         return "";
                     }
+                }
+                int i =0;
+                while(i<subjects.size()-1){
+		//for (int i = 0; i < subjects.size(); i++) {
+                    
 			if((singularSubject(subjects.get(i), subjectIdentifiers.get(i)) == singularAction(actionIdentifiers
 					.get(i)))) {
 				return "";
 				// replace with gui print method
 			}
+                        i++;
 		}
 
 		return error;
