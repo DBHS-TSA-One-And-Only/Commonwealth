@@ -6,6 +6,9 @@ import commonwealth.gui.CommonwealthGUI;
 import commonwealth.members.Clause;
 import commonwealth.members.Sentence;
 import commonwealth.sentencemanager.Identifier;
+import static commonwealth.sentencemanager.Identifier.SUBJECTS;
+import static commonwealth.sentencemanager.Identifier.VERBS;
+import static commonwealth.sentencemanager.Identifier.prepositions;
 import commonwealth.sentencemanager.Splitter;
 import commonwealth.sentencemanager.Tokenizer;
 import java.io.BufferedReader;
@@ -78,6 +81,59 @@ public class Main {
 			/*System.out.println("  a  ");
 			System.out.println("");*/
 			sentences.add(tokenizer.run(s));
+                        Identifier id = new Identifier();
+                      //  System.out.println(id.subjectsOf(tokenizer.run(s).getSentence(), tokenizer.run(s).getPosTags()));
+                        
+                        
+                        
+                      ArrayList<String>  clause = tokenizer.run(s).getSentence(), charIdentifier = tokenizer.run(s).getPosTags();
+                        
+                        boolean hasPrep = false, hasVerb = false;
+		ArrayList<String> subjects = new ArrayList<>(), identifiers = new ArrayList<>();
+		for (int index = 0; index < clause.size(); index++) {
+			for(String d: Identifier.prepositions){
+				if(clause.get(index).replaceAll("\\s","").equalsIgnoreCase(d)){
+					hasPrep = true;
+					break;
+				}
+			}
+			for (String e : Identifier.VERBS) {
+				if (charIdentifier.get(index).equals(e)) {
+					hasVerb = true;
+					break;
+				}
+			}
+			
+				if(!hasVerb){
+					for (String f : Identifier.SUBJECTS) {
+						if (charIdentifier.get(index).equals(f)) {
+                                                    if(!hasPrep){
+							subjects.add(clause.get(index));
+							identifiers.add(charIdentifier.get(index));
+                                                    }
+                                                    else{
+							hasPrep = false;
+                                                    }
+						}
+					}
+				}
+			}
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         for(String z: (tokenizer.run(s)).getPosTags()){
                         System.out.println(z);
                         }

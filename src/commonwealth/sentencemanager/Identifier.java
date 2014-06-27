@@ -54,7 +54,7 @@ public class Identifier {
 		ArrayList<String> subjects = new ArrayList<>(), identifiers = new ArrayList<>();
 		for (int index = 0; index < clause.size(); index++) {
 			for(String s: prepositions){
-				if(clause.get(index).equalsIgnoreCase(s)){
+				if(clause.get(index).replaceAll("\\s","").equalsIgnoreCase(s)){
 					hasPrep = true;
 					break;
 				}
@@ -65,18 +65,22 @@ public class Identifier {
 					break;
 				}
 			}
-			if(!hasPrep){
+			
 				if(!hasVerb){
 					for (String s : SUBJECTS) {
 						if (charIdentifier.get(index).equals(s)) {
+                                                    if(!hasPrep){
 							subjects.add(clause.get(index));
 							identifiers.add(charIdentifier.get(index));
+                                                    }
+                                                    else{
 							hasPrep = false;
+                                                    }
 						}
 					}
 				}
 			}
-		}
+		
 		
 		ArrayList<ArrayList<String>> subjectBundle = new ArrayList<>();
 		subjectBundle.add(subjects);
