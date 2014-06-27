@@ -15,9 +15,9 @@ public class Clause {
     
     public Clause(ArrayList<ArrayList<String>> clauseBundle){
         subjects = clauseBundle.get(0);				//subjects of clause
-        subjectIdentifier = clauseBundle.get(1);	//identifiers of the subjects
-        actions = clauseBundle.get(2);
-        actionIdentifier = clauseBundle.get(3);
+        subjectIdentifier = clauseBundle.get(1);                //identifiers of the subjects of clause
+        actions = clauseBundle.get(2);                          //actions of clause
+        actionIdentifier = clauseBundle.get(3);                 //identifiers of the actions of clause 
         clause = clauseBundle.get(4);				//original clause
     }
     
@@ -47,7 +47,7 @@ public class Clause {
 		try {
 			scanner = new Scanner(new File("subordinating conjunctions")).useDelimiter(",");
 		} catch (FileNotFoundException e) {
-			// print error msg via gui
+			
 		}
 
 		while (scanner.hasNextLine()) {
@@ -74,13 +74,6 @@ public class Clause {
     }
     
     
-    //for testing
-    public String toString(){
-    	String compiledClause="";
-    	for(String s: clause){
-    		compiledClause = compiledClause + " " + s;
-    	}
-    	return compiledClause;
-    }
+   
     
 }

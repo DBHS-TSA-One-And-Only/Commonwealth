@@ -5,8 +5,6 @@ package commonwealth.gui;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import commonwealth.Main;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -22,8 +20,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
-
-
 public class CommonwealthGUI extends javax.swing.JFrame {
 
     /**
@@ -33,18 +29,18 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     public CommonwealthGUI() {
         initComponents();
     }
-                 
-    private void initComponents(){
+
+    private void initComponents() {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.getContentPane();
-        
+
         outputTextField = new JTextArea();
         titleLabel = new JLabel();
         checkButton = new JButton();
         jScrollPane1 = new JScrollPane();
         jScrollPane2 = new JScrollPane();
         inputTextField = new JTextArea();
-     
+
         introLabel = new JLabel();
         jLabel1 = new JLabel();
 
@@ -54,8 +50,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setSize(new java.awt.Dimension(600, 320));
         setResizable(false);
-        setLocation(dim.width/2 - getSize().width/2, dim.height/2 - getSize().height/2);
-        //setIconImage(icon);
+        setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2 - getSize().height / 2);
 
         outputTextField.setFont(new java.awt.Font("Monospaced", 0, 13)); // NOI18N
 
@@ -77,16 +72,17 @@ public class CommonwealthGUI extends javax.swing.JFrame {
                 try {
                     checkButtonActionPerformed(evt);
                 } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IndexOutOfBoundsException e){
-                    e.printStackTrace();
+
+                    print("File not found :(");
+                } catch (IndexOutOfBoundsException e) {
+                    print("Oops, something went wrong. Try Again!");
+
                 }
-                
+
             }
         });
         checkButton.setEnabled(false);
-       
+
         inputTextField.setColumns(20);
         inputTextField.setLineWrap(true);
         inputTextField.setRows(5);
@@ -99,17 +95,17 @@ public class CommonwealthGUI extends javax.swing.JFrame {
                 try {
                     checkButtonActionPerformed(evt);
                 } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
+
                     print("File not found :(");
-                } catch (IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
                     print("Oops, something went wrong. Try Again!");
-                    e.printStackTrace();
+
                 }
-                
+
             }
         });
         inputTextField.setEnabled(false);
-                
+
         introLabel.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         introLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         introLabel.setText("Please Type In Sentences Below:");
@@ -122,66 +118,57 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(introLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(checkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(258, 258, 258)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(introLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(212, 212, 212)
+                                        .addComponent(checkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(258, 258, 258)
+                                        .addComponent(jLabel1))
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(79, 79, 79)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jScrollPane2)
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(introLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(checkButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(introLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(checkButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }
-                           
-    private void checkButtonActionPerformed(ActionEvent evt) throws FileNotFoundException, IndexOutOfBoundsException {                                             
-    	//evt.getActionCommand();
-    	
-    	String userInput = inputTextField.getText();
-    	
-    	//Main.start(userInput);
-    	
-    	print(Main.start(userInput));
-    }                                                                
-    
-    //private static void configureAll(){
-    //    Identifier.initialize();
-    //    Tokenizer.initialize();
-    //}
-    
-    
-    private void initialize(){
-        
+
+    private void checkButtonActionPerformed(ActionEvent evt) throws FileNotFoundException, IndexOutOfBoundsException {
+
+        String userInput = inputTextField.getText();
+
+        print(Main.start(userInput));
+    }
+
+    private void initialize() {
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -200,16 +187,13 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public void run() throws FileNotFoundException{
+    public void run() throws FileNotFoundException {
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Windows (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        
+
         this.initialize();
         final CommonwealthGUI GUI = new CommonwealthGUI();
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -217,7 +201,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
                 GUI.setVisible(true);
             }
         });
-        
+
         GUI.inputTextField.setText("Configuring...");
         //configureAll();
         GUI.inputTextField.setText("");
@@ -225,15 +209,15 @@ public class CommonwealthGUI extends javax.swing.JFrame {
         GUI.checkButton.setEnabled(true);
         GUI.outputTextField.setEnabled(true);
     }
-    
-    public void print(String s){
+
+    public void print(String s) {
         outputTextField.setText(s);
     }
-    
-    public static void show(String s){
+
+    public static void show(String s) {
         JOptionPane.showMessageDialog(null, s, "Info", JOptionPane.ERROR_MESSAGE);
     }
-    
+
     // Variables declaration - do not modify
     private JLabel introLabel;
     private JLabel jLabel1;
@@ -242,7 +226,7 @@ public class CommonwealthGUI extends javax.swing.JFrame {
     public JTextArea outputTextField;
     private JButton checkButton;
     public JTextArea inputTextField;
-    
+
     private JLabel titleLabel;
     // End of variables declaration                  
 }
