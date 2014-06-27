@@ -45,7 +45,7 @@ public class Clause {
     public ArrayList<String> initialize(ArrayList<String> subordinatingConjunctions){
     	Scanner scanner = null;
 		try {
-			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\subordinating conjunctions")).useDelimiter(",");
+			scanner = new Scanner(new File("subordinating conjunctions")).useDelimiter(",");
 		} catch (FileNotFoundException e) {
 			// print error msg via gui
 		}

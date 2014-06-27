@@ -137,7 +137,7 @@ public class Tokenizer {
 	public static void initialize(){
 		Scanner scanner = null;
 		try {
-			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\postaggerkey"));
+			scanner = new Scanner(new File("postaggerkey"));
 		} catch (FileNotFoundException e) {
 			// print error msg via gui
 		}
@@ -170,7 +170,7 @@ public class Tokenizer {
 		}
 		
 		try {
-			scanner = new Scanner(new File("DBHS-TSA-One-And-Only\\Commonwealth\\contractions"));
+			scanner = new Scanner(new File("contractions"));
 		} catch (FileNotFoundException e) {
 			// print error msg via gui
 		}
